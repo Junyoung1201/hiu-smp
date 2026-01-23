@@ -53,3 +53,7 @@ processResources {
         expand props
     }
 }
+
+jar {
+    destinationDirectory = file("A:\\Minecraft\\[1.21.11] 히유 SMP\\plugins")
+}

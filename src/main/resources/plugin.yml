@@ -2,7 +2,11 @@ name: HiuSMP
 version: '1.0'
 main: me.saehyeon.hiusmp.Main
 api-version: '1.21'
-prefix: EFY
+prefix: HIU_SMP
 authors: [ 이준영 ]
-description: 이스케이프 프롬 얀데레 플러그인
+description: 히유 SMP 코어 플러그인
 website: https://github.com/Junyoung1201
+commands:
+  상점:
+  돈:
+  송금:
