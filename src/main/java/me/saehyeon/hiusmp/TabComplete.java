@@ -13,6 +13,14 @@ import java.util.List;
 public class TabComplete implements TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
+        if(label.equals("hiu-item")) {
+            if(sender.isOp() || sender.equals(Bukkit.getConsoleSender())) {
+                if(args.length == 1) {
+                    return Arrays.asList("inv-save-paper");
+                }
+            }
+        }
+
         if(label.equals("돈")) {
             if(sender.isOp() || sender.equals(Bukkit.getConsoleSender())) {
                 if(args.length == 1) {

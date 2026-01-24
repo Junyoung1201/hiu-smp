@@ -1,13 +1,16 @@
 package me.saehyeon.hiusmp;
 
 import me.saehyeon.hiusmp.economy.Economy;
-import me.saehyeon.hiusmp.features.Home;
-import me.saehyeon.hiusmp.features.HomeGUiEvent;
-import me.saehyeon.hiusmp.features.TeleportEvent;
-import me.saehyeon.hiusmp.security.BlockEvent;
-import me.saehyeon.hiusmp.security.NPCEvent;
+import me.saehyeon.hiusmp.features.*;
+import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
+import me.saehyeon.hiusmp.lobby.BlockEvent;
+import me.saehyeon.hiusmp.lobby.InteractiveEvent;
+import me.saehyeon.hiusmp.lobby.NPCEvent;
+import me.saehyeon.hiusmp.parkour.Parkour;
+import me.saehyeon.hiusmp.parkour.ParkourEvent;
 import me.saehyeon.hiusmp.shop.ShopEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.GameRules;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
@@ -29,6 +32,9 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("집").setExecutor(new Command());
         Bukkit.getPluginCommand("홈").setExecutor(new Command());
         Bukkit.getPluginCommand("집설정").setExecutor(new Command());
+        Bukkit.getPluginCommand("이름").setExecutor(new Command());
+        Bukkit.getPluginCommand("주사위").setExecutor(new Command());
+        Bukkit.getPluginCommand("hiu-item").setExecutor(new Command());
 
         Bukkit.getPluginCommand("상점").setTabCompleter(new TabComplete());
         Bukkit.getPluginCommand("돈").setTabCompleter(new TabComplete());
@@ -39,14 +45,34 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BlockEvent(), this);
         Bukkit.getPluginManager().registerEvents(new NPCEvent(), this);
         Bukkit.getPluginManager().registerEvents(new HomeGUiEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new CustomNameEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractiveEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new ParkourEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new InventorySavePaperEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new DiceEvent(), this);
 
         Economy.load();
         Home.load();
+        CustomName.load();
+
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            CustomName.ensureScoreboard();
+            CustomName.clearCustomNameTagTextDisplay();
+
+            Bukkit.getOnlinePlayers().forEach(p -> {
+                CustomName.setName(p, CustomName.getName(p));
+            });
+            Bukkit.getWorlds().forEach(world -> {
+                world.setGameRule(GameRules.COMMAND_BLOCK_OUTPUT, false);
+                world.setGameRule(GameRules.SEND_COMMAND_FEEDBACK, false);
+            });
+        },50);
     }
 
     @Override
     public void onDisable() {
         Economy.save();
         Home.save();
+        CustomName.save();
     }
 }

@@ -6,8 +6,23 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class InventoryUtil {
+    public static void removeItems(Player player, Predicate<ItemStack> predicate, int amount) {
+        for (ItemStack invItem : player.getInventory().getContents()) {
+            if (invItem != null && predicate.test(invItem)) {
+                int preAmount = invItem.getAmount();
+                int newAmount = Math.max(0, preAmount - amount);
+                amount = Math.max(0, amount - preAmount);
+                invItem.setAmount(newAmount);
+                if (amount == 0) {
+                    break;
+                }
+            }
+        }
+    }
+
     public static void removeItems(Player player, Material material, int amount) {
 
         for(ItemStack invItem : player.getInventory().getContents()) {

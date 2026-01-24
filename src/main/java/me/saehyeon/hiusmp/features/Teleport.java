@@ -100,7 +100,17 @@ public class Teleport {
         teleportWaitTimer.get(player).add(
              Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
                  if(teleportWait.contains(player)) {
-                     player.teleport(targetLoc);
+
+                     String worldName = targetLoc.getWorld().getName();
+
+                     worldName = switch (worldName) {
+                         case "world" -> "overworld";
+                         case "world_nether" -> "the_nether";
+                         case "world_end" -> "the_end";
+                         default -> worldName;
+                     };
+
+                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:"+worldName+" run tp "+player.getName()+" "+targetLoc.getX()+" "+targetLoc.getY()+" "+targetLoc.getZ());
                      teleportComplete(player);
                  }
              },TELEPORT_WAIT_SECONDS* 20L)

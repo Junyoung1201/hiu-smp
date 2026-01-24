@@ -1,8 +1,11 @@
 package me.saehyeon.hiusmp;
 
 import me.saehyeon.hiusmp.economy.Economy;
+import me.saehyeon.hiusmp.features.CustomName;
+import me.saehyeon.hiusmp.features.Dice;
 import me.saehyeon.hiusmp.features.Home;
 import me.saehyeon.hiusmp.features.Teleport;
+import me.saehyeon.hiusmp.items.InventorySavePaper;
 import me.saehyeon.hiusmp.shop.BlockShop;
 import me.saehyeon.hiusmp.shop.ShopManager;
 import org.bukkit.Bukkit;
@@ -118,6 +121,22 @@ public class Command implements CommandExecutor {
             Teleport.teleportCancel((Player) sender);
         }
 
+        else if(label.equals("이름")) {
+            try {
+                if(args.length == 0) {
+                    sender.sendMessage("§c사용법: /이름 [한글 이름]");
+                    return false;
+                }
+
+                CustomName.setName((Player) sender, args[0]);
+                sender.sendMessage("당신의 이름이 "+args[0]+"§f(으)로 설정되었습니다.");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                sender.sendMessage("§c사용법: /이름 [한글 이름]");
+            }
+        }
+
         else if(label.equals("로비")) {
             Teleport.teleportWait((Player) sender, new Location(Bukkit.getWorld("world"), 0, 0, 0,0,0));
         }
@@ -128,6 +147,24 @@ public class Command implements CommandExecutor {
 
         else if(label.equals("집설정")) {
             Home.openSetHomeGUI(((Player) sender));
+        }
+
+        else if(label.equals("parkour-clear")) {
+            if(args[0].equals("hansol1025")) {
+                sender.sendMessage("");
+            } else {
+                sender.sendMessage("§c올바르지 않은 접근입니다.");
+            }
+        }
+
+        else if(label.equals("주사위")) {
+            Dice.startBetting((Player) sender);
+        }
+
+        else if(label.equals("hiu-item")) {
+            if(args[0].equals("inv-save-paper")) {
+                ((Player) sender).getInventory().addItem(InventorySavePaper.getItem());
+            }
         }
 
         else if(label.equals("송금")) {

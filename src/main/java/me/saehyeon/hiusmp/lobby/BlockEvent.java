@@ -1,4 +1,4 @@
-package me.saehyeon.hiusmp.security;
+package me.saehyeon.hiusmp.lobby;
 
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
