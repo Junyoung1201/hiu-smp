@@ -18,7 +18,7 @@ public class ShopManager {
         blockShopMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         blockShop.setItemMeta(blockShopMeta);
 
-        inv.setItem(11, blockShop);
+        inv.setItem(10, blockShop);
 
         ItemStack minerShop = new ItemStack(Material.IRON_PICKAXE);
         ItemMeta minerMeta = minerShop.getItemMeta();
@@ -26,7 +26,15 @@ public class ShopManager {
         minerMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         minerShop.setItemMeta(minerMeta);
 
-        inv.setItem(13, minerShop);
+        inv.setItem(12, minerShop);
+
+        ItemStack farmShop = new ItemStack(Material.IRON_HOE);
+        ItemMeta farmShopMeta = farmShop.getItemMeta();
+        farmShopMeta.setDisplayName("§f농작물 상점");
+        farmShopMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        farmShop.setItemMeta(farmShopMeta);
+
+        inv.setItem(14, farmShop);
 
         ItemStack treasureShop = new ItemStack(Material.NETHER_STAR);
         ItemMeta treasureMeta = treasureShop.getItemMeta();
@@ -34,7 +42,7 @@ public class ShopManager {
         treasureMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         treasureShop.setItemMeta(treasureMeta);
 
-        inv.setItem(15, treasureShop);
+        inv.setItem(16, treasureShop);
 
         player.openInventory(inv);
     }
