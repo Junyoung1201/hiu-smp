@@ -6,6 +6,7 @@ import me.saehyeon.hiusmp.features.Dice;
 import me.saehyeon.hiusmp.features.Home;
 import me.saehyeon.hiusmp.features.Teleport;
 import me.saehyeon.hiusmp.items.InventorySavePaper;
+import me.saehyeon.hiusmp.parkour.Parkour;
 import me.saehyeon.hiusmp.shop.BlockShop;
 import me.saehyeon.hiusmp.shop.ShopManager;
 import org.bukkit.Bukkit;
@@ -161,9 +162,23 @@ public class Command implements CommandExecutor {
             Dice.startBetting((Player) sender);
         }
 
+        else if(label.equals("집터")) {
+            Teleport.teleportWait((Player) sender, new Location(Bukkit.getWorld("town"), 0.5f, -60f, 0.5f, 0,0));
+        }
+
         else if(label.equals("hiu-item")) {
             if(args[0].equals("inv-save-paper")) {
                 ((Player) sender).getInventory().addItem(InventorySavePaper.getItem());
+            }
+
+            if(args[0].equals("test")) {
+                sender.sendMessage("파쿠르 안에 있음?: "+Constants.locations.PARKOUR_POS1);
+            }
+        }
+
+        else if(label.equals("나가기")) {
+            if(Parkour.isInParkour((Player) sender)) {
+                Parkour.exit((Player) sender);
             }
         }
 

@@ -48,6 +48,9 @@ public class ShopEvent implements Listener {
                 case "§f농작물 상점":
                     FarmShop.open((Player) e.getWhoClicked());
                     break;
+                case "§f잡템 상점":
+                    MonsterShop.open((Player) e.getWhoClicked());
+                    break;
             }
         }
     }

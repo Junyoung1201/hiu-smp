@@ -27,7 +27,7 @@ public class NPCEvent implements Listener {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:wild run tp "+e.getPlayer().getName()+" 0 78 0");
                 }
 
-                else if(npcName.equals("파쿠르 도박")) {
+                else if(npcName.equals("파쿠르")) {
                     Parkour.openGUI(e.getPlayer());
                 }
             }

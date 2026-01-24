@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ShopManager {
     public static void openSelectScreen(Player player) {
-        Inventory inv = Bukkit.createInventory(null, 27, "상점 선택");
+        Inventory inv = Bukkit.createInventory(null, 54, "상점 선택");
 
         ItemStack blockShop = new ItemStack(Material.GRASS_BLOCK);
         ItemMeta blockShopMeta = blockShop.getItemMeta();;
@@ -43,6 +43,14 @@ public class ShopManager {
         treasureShop.setItemMeta(treasureMeta);
 
         inv.setItem(16, treasureShop);
+
+        ItemStack monsterShop = new ItemStack(Material.STONE_SWORD);
+        ItemMeta monsterShopMeta = monsterShop.getItemMeta();
+        monsterShopMeta.setDisplayName("§f잡템 상점");
+        monsterShopMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        monsterShop.setItemMeta(monsterShopMeta);
+
+        inv.setItem(28, monsterShop);
 
         player.openInventory(inv);
     }

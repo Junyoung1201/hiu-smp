@@ -24,7 +24,7 @@ public class BlockEvent implements Listener {
 
     @EventHandler
     void onLobbyWorldInteractionBlock(PlayerInteractEvent e) {
-        if(e.getClickedBlock() != null && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
+        if(e.getClickedBlock() != null && e.getPlayer().getWorld().getName().equals("world") && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
             e.setCancelled(true);
         }
     }

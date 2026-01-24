@@ -1,15 +1,29 @@
 package me.saehyeon.hiusmp.parkour;
 
+import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.Main;
 import org.bukkit.*;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class ParkourEvent implements Listener {
+    @EventHandler
+    void onDamagedInParkour(EntityDamageEvent e) {
+        if(e.getEntityType() == EntityType.PLAYER && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+            Player player = (Player) e.getEntity();
+
+            if(Parkour.isInParkour(player)) {
+                e.setCancelled(true);
+                e.setDamage(0);
+            }
+        }
+    }
+
     @EventHandler
     void onStartScreenClick(InventoryClickEvent e) {
         if(e.getCurrentItem() != null && e.getView().getTitle().equals("파쿠르")) {
@@ -17,9 +31,9 @@ public class ParkourEvent implements Listener {
 
             if(e.getCurrentItem().getType() == Material.SLIME_BLOCK) {
                 Player player = (Player) e.getWhoClicked();
-                Parkour.startInputMoney(player);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.MASTER,0.7f,1f);
                 player.closeInventory();
+                Parkour.start(player);
             }
         }
     }
@@ -38,29 +52,6 @@ public class ParkourEvent implements Listener {
             else if(loc.getBlock().getType() == Material.GOLD_BLOCK) {
                 // 파쿠르 성공
                 Parkour.complete(e.getPlayer());
-            }
-        }
-    }
-
-    @EventHandler
-    void onChat(AsyncPlayerChatEvent e) {
-        if(Parkour.isInputingMoney(e.getPlayer())) {
-            e.setCancelled(true);
-
-            if(e.getMessage().toLowerCase().equals("exit") || e.getMessage().equals("종료")) {
-                e.getPlayer().sendMessage("파쿠르 도박을 취소했습니다.");
-                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_VILLAGER_NO, 1,1);
-                Parkour.stopInputMoney(e.getPlayer());
-            } else {
-                try {
-                    int money = Integer.parseInt(e.getMessage());
-                    Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
-                        Parkour.start(e.getPlayer(),money);
-                    },5);
-                } catch (Exception err) {
-                    err.printStackTrace();
-                    e.getPlayer().sendMessage("§c배팅할 금액은 자연수여야 합니다.");
-                }
             }
         }
     }
