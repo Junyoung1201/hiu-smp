@@ -20,7 +20,8 @@ public class TreasureShop {
                 new ShopItem("폭죽", Material.FIREWORK_ROCKET, 50,250),
                 new ShopItem("엔더드래곤 머리", Material.DRAGON_HEAD, 35000,50000),
                 new ShopItem("토템", Material.TOTEM_OF_UNDYING, 40000,200000),
-                new ShopItem("엔더드래곤 알", Material.DRAGON_EGG, 10000,25000)
+                new ShopItem("엔더드래곤 알", Material.DRAGON_EGG, 10000,25000),
+                new ShopItem("팬텀 막", Material.PHANTOM_MEMBRANE, 2500,5000),
         };
 
         for(int i = 0 ; i < items.length; i++) {

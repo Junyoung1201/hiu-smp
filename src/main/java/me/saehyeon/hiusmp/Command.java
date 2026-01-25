@@ -163,7 +163,7 @@ public class Command implements CommandExecutor {
         }
 
         else if(label.equals("집터")) {
-            Teleport.teleportWait((Player) sender, new Location(Bukkit.getWorld("town"), 0.5f, -60f, 0.5f, 0,0));
+            Teleport.teleportWait((Player) sender, Constants.locations.TOWN_SPAWN);
         }
 
         else if(label.equals("hiu-item")) {

@@ -30,6 +30,10 @@ public class NPCEvent implements Listener {
                 else if(npcName.equals("파쿠르")) {
                     Parkour.openGUI(e.getPlayer());
                 }
+
+                else if(npcName.equals("집터로 이동")) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:town run tp "+e.getPlayer().getName()+" 0.5 -12 0.5");
+                }
             }
         }
     }

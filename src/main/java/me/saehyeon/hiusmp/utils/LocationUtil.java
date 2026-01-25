@@ -2,6 +2,7 @@ package me.saehyeon.hiusmp.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 public class LocationUtil {
     public static boolean isWithin(Location target, Location pos1, Location pos2) {
