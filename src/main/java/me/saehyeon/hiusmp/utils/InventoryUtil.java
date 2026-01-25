@@ -40,12 +40,24 @@ public class InventoryUtil {
         }
     }
 
+    public static int howManyItems(Player player, Predicate<ItemStack> predicate) {
+        return Arrays.stream(player.getInventory().getContents())
+                .filter(Objects::nonNull)
+                .filter(predicate)
+                .mapToInt(ItemStack::getAmount)
+                .sum();
+    }
+
     public static int howManyItems(Player player, Material material) {
         return Arrays.stream(player.getInventory().getContents())
                 .filter(Objects::nonNull)
                 .filter(i -> i.getType() == material)
                 .mapToInt(ItemStack::getAmount)
                 .sum();
+    }
+
+    public static boolean hasItem(Player player, Predicate<ItemStack> predicate, int amount) {
+        return howManyItems(player, predicate) >= amount;
     }
 
     public static boolean hasItem(Player player, Material material, int amount) {

@@ -17,6 +17,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.function.Predicate;
+
 public class ShopEvent implements Listener {
 
     boolean isShopGui(InventoryClickEvent e) {
@@ -35,21 +37,28 @@ public class ShopEvent implements Listener {
         if(e.getView().getTitle().equals("상점 선택") && e.getCurrentItem() != null) {
             e.setCancelled(true);
 
+            Player player = (Player) e.getWhoClicked();
+
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, SoundCategory.MASTER,0.7f,1);
+
             switch( ItemUtil.getDisplayName(e.getCurrentItem()) ) {
                 case "§f블럭 상점":
-                    BlockShop.open((Player) e.getWhoClicked());
+                    BlockShop.open(player);
                     break;
                 case "§f광물 상점":
-                    MinerShop.open((Player) e.getWhoClicked());
+                    MinerShop.open(player);
                     break;
                 case "§f희귀품 상점":
-                    TreasureShop.open((Player) e.getWhoClicked());
+                    TreasureShop.open(player);
                     break;
                 case "§f농작물 상점":
-                    FarmShop.open((Player) e.getWhoClicked());
+                    FarmShop.open(player);
                     break;
                 case "§f잡템 상점":
-                    MonsterShop.open((Player) e.getWhoClicked());
+                    MonsterShop.open(player);
+                    break;
+                case "§d스페셜 상점":
+                    SpecialShop.open(player);
                     break;
             }
         }
@@ -60,7 +69,7 @@ public class ShopEvent implements Listener {
         Player player = (Player) e.getWhoClicked();
         ItemStack item = e.getCurrentItem();
 
-        if(isShopGui(e) && ShopItem.isShopItem(item)) {
+        if(isShopGui(e)) {
             e.setCancelled(true);
 
             // 쉬프트 + 판매
@@ -71,17 +80,38 @@ public class ShopEvent implements Listener {
                     amount = 10;
                 }
 
-                if(InventoryUtil.hasItem(player, item.getType(), amount)) {
-                    InventoryUtil.removeItems(player,item.getType(), amount);
+                if(ShopItem.isShopItem(item)) {
+                    if(InventoryUtil.hasItem(player, item.getType(), amount)) {
+                        InventoryUtil.removeItems(player,item.getType(), amount);
 
-                    int cost = ShopItem.getSellPrice(item)*amount;
+                        int cost = ShopItem.getSellPrice(item)*amount;
 
-                    Economy.addMoney(player, cost);
-                    player.sendMessage("아이템을 판매하여 §6"+cost+" 히유코인§f을 얻었습니다.");
-                    player.playSound(player.getLocation(), Sound.BLOCK_CHAIN_PLACE, 0.7f, 1.5f);
-                } else {
-                    player.sendMessage("§c판매에 필요한 아이템이 충분하지 않습니다.");
-                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.7f,1);
+                        Economy.addMoney(player, cost);
+                        player.sendMessage("아이템을 판매하여 §6"+cost+" 히유코인§f을 얻었습니다.");
+                        player.playSound(player.getLocation(), Sound.BLOCK_CHAIN_PLACE, 0.7f, 1.5f);
+                    } else {
+                        player.sendMessage("§c판매에 필요한 아이템이 충분하지 않습니다.");
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.7f,1);
+                    }
+                }
+
+                else if(ExtraShopItem.isExtraShopItem(item)) {
+
+                    Predicate<ItemStack> testFunc = (i) -> ItemUtil.getDisplayName(i).equals(ItemUtil.getDisplayName(item));
+
+                    if(InventoryUtil.hasItem(player, testFunc, amount)) {
+                        InventoryUtil.removeItems(player,testFunc, amount);
+
+                        int cost = ExtraShopItem.getSellPrice(item)*amount;
+
+                        Economy.addMoney(player, cost);
+                        player.sendMessage("아이템을 판매하여 §6"+cost+" 히유코인§f을 얻었습니다.");
+                        player.playSound(player.getLocation(), Sound.BLOCK_CHAIN_PLACE, 0.7f, 1.5f);
+                    } else {
+                        player.sendMessage("§c판매에 필요한 아이템이 충분하지 않습니다.");
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.7f,1);
+                    }
+
                 }
             }
         }
@@ -105,7 +135,7 @@ public class ShopEvent implements Listener {
         Player player = (Player) e.getWhoClicked();
         ItemStack item = e.getCurrentItem();
 
-        if(isShopGui(e) && ShopItem.isShopItem(item)) {
+        if(isShopGui(e)) {
             e.setCancelled(true);
 
             // 쉬프트 + 구매
@@ -116,17 +146,39 @@ public class ShopEvent implements Listener {
                     amount = 10;
                 }
 
-                int cost = amount*ShopItem.getBuyPrice(item);
+                if(ShopItem.isShopItem(item)) {
+                    int cost = amount*ShopItem.getBuyPrice(item);
 
-                if( cost <= Economy.getMoney(player)) {
-                    ItemStack giveItem = new ItemStack(e.getCurrentItem().getType(), amount);
-                    player.give(giveItem);
-                    Economy.addMoney(player, -cost);
-                    player.sendMessage("§6"+cost+" 히유코인§f를 소비하여 §f§l"+ItemUtil.getDisplayName(item)+"§f(을)를 구매했습니다.");
-                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 0.7f, 1.5f);
-                } else {
-                    player.sendMessage("§c소지금이 부족합니다! 총 §c§l"+cost+" 히유코인§c가 필요하지만, 현재 소지금은 §c§l"+Economy.getMoney(player)+" 히유코인§c입니다. ("+(cost-Economy.getMoney(player))+" 히유 부족)");
-                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.7f,1);
+                    if( cost <= Economy.getMoney(player)) {
+                        ItemStack giveItem = new ItemStack(e.getCurrentItem().getType(), amount);
+                        player.give(giveItem);
+                        Economy.addMoney(player, -cost);
+                        player.sendMessage("§6"+cost+" 히유코인§f를 소비하여 §f§l"+ItemUtil.getDisplayName(item)+"§f(을)를 구매했습니다.");
+                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 0.7f, 1.5f);
+                    } else {
+                        player.sendMessage("§c소지금이 부족합니다! 총 §c§l"+cost+" 히유코인§c가 필요하지만, 현재 소지금은 §c§l"+Economy.getMoney(player)+" 히유코인§c입니다. ("+(cost-Economy.getMoney(player))+" 히유 부족)");
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.7f,1);
+                    }
+                }
+
+                else if(ExtraShopItem.isExtraShopItem(item)) {
+
+                    int cost = amount*ExtraShopItem.getBuyPrice(item);
+
+                    if( cost <= Economy.getMoney(player)) {
+                        ItemStack giveItem = ExtraShopItem.getRealItem(item);
+                        giveItem.setAmount(amount);
+
+                        player.give(giveItem);
+
+                        Economy.addMoney(player, -cost);
+                        player.sendMessage("§6"+cost+" 히유코인§f를 소비하여 §f§l"+ItemUtil.getDisplayName(item)+"§f(을)를 구매했습니다.");
+                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 0.7f, 1.5f);
+                    } else {
+                        player.sendMessage("§c소지금이 부족합니다! 총 §c§l"+cost+" 히유코인§c가 필요하지만, 현재 소지금은 §c§l"+Economy.getMoney(player)+" 히유코인§c입니다. ("+(cost-Economy.getMoney(player))+" 히유 부족)");
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.7f,1);
+                    }
+
                 }
             }
         }

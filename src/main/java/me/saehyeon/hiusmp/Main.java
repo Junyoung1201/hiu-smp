@@ -1,5 +1,7 @@
 package me.saehyeon.hiusmp;
 
+import me.saehyeon.hiusmp.bonus.AdvancementEvent;
+import me.saehyeon.hiusmp.bonus.MonsterKillEvent;
 import me.saehyeon.hiusmp.economy.Economy;
 import me.saehyeon.hiusmp.features.*;
 import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
@@ -58,6 +60,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new DiceEvent(), this);
         Bukkit.getPluginManager().registerEvents(new TownEvent(), this);
         Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new AdvancementEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new MonsterKillEvent(), this);
 
         Economy.load();
         Home.load();

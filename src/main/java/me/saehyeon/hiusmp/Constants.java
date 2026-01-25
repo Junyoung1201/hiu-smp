@@ -15,6 +15,11 @@ public class Constants {
         locations.TOWN_SPAWN = new Location(Bukkit.getWorld("town"), 0.5f, -12, 0.5f);
     }
 
+    public static class shop {
+        public static int SHOP_ITEM_CUSTOM_MODEL_DATA = 1001;
+        public static int EXTRA_SHOP_ITEM_CUSTOM_MODE_DATA = 1002;
+    }
+
     public static class costs {
         public static int HOME_SET_COST = 500;
     }

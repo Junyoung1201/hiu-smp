@@ -52,6 +52,14 @@ public class ShopManager {
 
         inv.setItem(28, monsterShop);
 
+        ItemStack specialShop = new ItemStack(Material.ECHO_SHARD);
+        ItemMeta specialShopMeta = specialShop.getItemMeta();
+        specialShopMeta.setDisplayName("§d스페셜 상점");
+        specialShopMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        specialShop.setItemMeta(specialShopMeta);
+
+        inv.setItem(30, specialShop);
+
         player.openInventory(inv);
     }
 }

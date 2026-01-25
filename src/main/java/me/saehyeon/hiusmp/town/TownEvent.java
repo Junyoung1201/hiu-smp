@@ -7,9 +7,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.TNTPrimeEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
 
 public class TownEvent implements Listener {
+
+    @EventHandler
+    void onEntityExplosion(ExplosionPrimeEvent e) {
+        if(e.getEntity().getWorld().getName().equals("town")) {
+            e.setCancelled(true);
+        }
+    }
+
     @EventHandler
     void onMobSpawn(CreatureSpawnEvent e) {
         if(e.getEntity().getWorld().getName().equals("town")) {

@@ -1,5 +1,6 @@
 package me.saehyeon.hiusmp.shop;
 
+import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -45,11 +46,7 @@ public class ShopItem {
     }
 
     public static boolean isShopItem(ItemStack item) {
-        if(item != null && item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
-            return item.getItemMeta().getCustomModelData() == 1001;
-        }
-
-        return false;
+        return item != null && item.getItemMeta() != null && item.getItemMeta().hasCustomModelData() && item.getItemMeta().getCustomModelData() == Constants.shop.SHOP_ITEM_CUSTOM_MODEL_DATA;
     }
 
     public ItemStack toItemStack() {
@@ -60,7 +57,7 @@ public class ShopItem {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
         // 아이템의 custom model data가 1001 이면 -> 상점 아이템임
-        meta.setCustomModelData(1001);
+        meta.setCustomModelData(Constants.shop.SHOP_ITEM_CUSTOM_MODEL_DATA);
 
         item.setItemMeta(meta);
         return item;

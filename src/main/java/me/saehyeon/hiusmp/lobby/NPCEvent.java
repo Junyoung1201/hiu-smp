@@ -25,6 +25,8 @@ public class NPCEvent implements Listener {
 
                 if(npcName.equals("야생으로 이동")) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:wild run tp "+e.getPlayer().getName()+" 0 78 0");
+                    
+                    e.getPlayer().sendMessage("§c§l야생에 집을 짓지 마세요! §f야생은 2주 마다 초기화됩니다!");
                 }
 
                 else if(npcName.equals("파쿠르")) {
