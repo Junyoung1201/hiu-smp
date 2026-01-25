@@ -37,6 +37,9 @@ public class Parkour {
         Economy.addMoney(player, PARKOUR_COMPLETE_PRICE);
         player.teleport(Constants.locations.LOBBY);
         player.sendTitle("§a§l파쿠르 완료", "§6"+PARKOUR_COMPLETE_PRICE+" 히유코인§f을 얻었습니다!",0,70,20);
+        Bukkit.broadcastMessage("");
+        Bukkit.broadcastMessage("§a§l파쿠르 완료! §f"+player.getName()+"(이)가 파쿠르를 완료했습니다.");
+        Bukkit.broadcastMessage("");
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.MASTER, 0.7f,1f);
     }
 
@@ -57,6 +60,7 @@ public class Parkour {
     public static void failed(Player player) {
 
         player.teleport(Constants.locations.PARKOUR_SPAWN);
+        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.7f, 1);
         player.sendMessage("§c파쿠르에 실패했습니다! \"/나가기\"를 입력하면 파쿠르에서 나갑니다.");
     }
 

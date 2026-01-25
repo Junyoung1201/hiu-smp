@@ -4,6 +4,7 @@ import me.saehyeon.hiusmp.economy.Economy;
 import me.saehyeon.hiusmp.features.*;
 import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
 import me.saehyeon.hiusmp.lobby.BlockEvent;
+import me.saehyeon.hiusmp.lobby.ConnectEvent;
 import me.saehyeon.hiusmp.lobby.InteractiveEvent;
 import me.saehyeon.hiusmp.lobby.NPCEvent;
 import me.saehyeon.hiusmp.parkour.Parkour;
@@ -38,6 +39,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("이름").setExecutor(new Command());
         Bukkit.getPluginCommand("주사위").setExecutor(new Command());
         Bukkit.getPluginCommand("집터").setExecutor(new Command());
+        Bukkit.getPluginCommand("도움말").setExecutor(new Command());
         Bukkit.getPluginCommand("hiu-item").setExecutor(new Command());
 
         Bukkit.getPluginCommand("상점").setTabCompleter(new TabComplete());
@@ -55,6 +57,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventorySavePaperEvent(), this);
         Bukkit.getPluginManager().registerEvents(new DiceEvent(), this);
         Bukkit.getPluginManager().registerEvents(new TownEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this);
 
         Economy.load();
         Home.load();

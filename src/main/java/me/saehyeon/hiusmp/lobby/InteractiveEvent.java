@@ -22,6 +22,12 @@ public class InteractiveEvent implements Listener {
                 e.setCancelled(true);
                 e.getPlayer().sendMessage("§c이 월드에서는 엔더진주를 사용할 수 없습니다.");
             }
+
+            // 로비에서 폭죽 사용 금지
+            if(item.getType() == Material.FIREWORK_ROCKET || item2.getType() == Material.FIREWORK_ROCKET) {
+                e.setCancelled(true);
+                e.getPlayer().sendMessage("§c이 월드에서는 폭죽을 사용할 수 없습니다.");
+            }
         }
     }
 }

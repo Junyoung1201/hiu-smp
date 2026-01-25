@@ -1,5 +1,6 @@
 package me.saehyeon.hiusmp.features;
 
+import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.Main;
 import org.bukkit.*;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -22,7 +23,7 @@ public class Home {
         List<Location> homeList = (List<Location>) homeData.get(player.getUniqueId().toString(), Arrays.asList(null,null,null,null));
         homeList.set(slotIndex-1, loc);
         homeData.set(player.getUniqueId().toString(), homeList);
-        player.sendMessage("§7슬롯 #"+slotIndex+"§f에 현재 위치를 저장했습니다.");
+        player.sendMessage("§7슬롯 #"+slotIndex+"§f에 현재 위치를 저장했습니다. §6"+Constants.costs.HOME_SET_COST+" 히유코인§f을 소모했습니다.");
 
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.MASTER, 0.7f,1.5f);
     }
@@ -75,7 +76,7 @@ public class Home {
         ItemStack descItem = new ItemStack(Material.NAME_TAG);
         ItemMeta descItemMeta = descItem.getItemMeta();
         descItemMeta.setDisplayName("§f현재 위치를 집으로 저장합니다.");
-        descItemMeta.setLore(Arrays.asList("§f위치를 저장할 슬롯을 클릭하세요. →","§f집 설정 시 마다 §650 히유코인§f을 소모합니다."));
+        descItemMeta.setLore(Arrays.asList("§f위치를 저장할 슬롯을 클릭하세요. →","§f집 설정 시 마다 §6"+ Constants.costs.HOME_SET_COST +" 히유코인§f을 소모합니다."));
         descItem.setItemMeta(descItemMeta);
 
         player.openInventory(inv);

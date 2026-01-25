@@ -109,7 +109,12 @@ public class Command implements CommandExecutor {
                 if(target == null) {
                     sender.sendMessage("§c"+args[0]+"(이)라는 플레이어를 찾을 수 없습니다.");
                 } else {
-                    Teleport.tpa((Player) sender, target);
+
+                    if(args[0].equalsIgnoreCase(sender.getName())) {
+                        sender.sendMessage("§c왜 자기 자신에게 티피요청을 하려고 하나요?");
+                    } else {
+                        Teleport.tpa((Player) sender, target);
+                    }
                 }
 
             } catch (Exception e) {
@@ -143,10 +148,20 @@ public class Command implements CommandExecutor {
         }
 
         else if(label.equals("집") || label.equals("홈")) {
+            if(Parkour.isInParkour((Player) sender)) {
+                sender.sendMessage("§c파쿠르 중에는 집 명령을 사용할 수 없습니다.");
+                return false;
+            }
+
             Home.openWarpGUI(((Player) sender));
         }
 
         else if(label.equals("집설정")) {
+            if(Parkour.isInParkour((Player) sender)) {
+                sender.sendMessage("§c파쿠르 중에는 집 설정 명령을 사용할 수 없습니다.");
+                return false;
+            }
+
             Home.openSetHomeGUI(((Player) sender));
         }
 
@@ -164,6 +179,22 @@ public class Command implements CommandExecutor {
 
         else if(label.equals("집터")) {
             Teleport.teleportWait((Player) sender, Constants.locations.TOWN_SPAWN);
+        }
+
+        else if(label.equals("도움말")) {
+            sender.sendMessage("");
+            sender.sendMessage("");
+            sender.sendMessage("§6/상점: §f상점 화면을 엽니다.");
+            sender.sendMessage("§6/주사위: §f주사위 도박을 시작합니다.");
+            sender.sendMessage("§6/tpa 또는 /티피요청 [플레이어 이름]: §f특정 플레이어에게 텔레포트를 요청합니다.");
+            sender.sendMessage("§6/돈: §f현재 소지금을 확인합니다.");
+            sender.sendMessage("§6/송금 [플레이어 이름] [금액]: §f특정 플레이어에게 일정 금액을 송금합니다.");
+            sender.sendMessage("§6/로비: §f로비로 이동합니다.");
+            sender.sendMessage("§6/집터: §f집터로 이동합니다.");
+            sender.sendMessage("§6/집 또는 /홈: §f집으로 설정된 위치로 텔레포트하기 위한 화면을 엽니다.");
+            sender.sendMessage("§6/집설정: §f집 위치 설정을 위한 화면을 엽니다.");
+            sender.sendMessage("§6/이름 [한글 이름]: §f한글 이름을 설정합니다.");
+            sender.sendMessage("");
         }
 
         else if(label.equals("hiu-item")) {

@@ -1,5 +1,6 @@
 package me.saehyeon.hiusmp.features;
 
+import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.economy.Economy;
 import me.saehyeon.hiusmp.utils.ItemUtil;
 import org.bukkit.*;
@@ -28,16 +29,16 @@ public class HomeGUiEvent implements Listener {
                     try {
 
                         // 집 설정 시작 (500 히유코인 필요)
-                        if(Economy.getMoney(player) < 500) {
+                        if(Economy.getMoney(player) < Constants.costs.HOME_SET_COST) {
                             // 돈 부족
                             player.closeInventory();
-                            player.sendMessage("§c소지금이 부족합니다. 집 위치를 설정하기 위해선 500 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
+                            player.sendMessage("§c소지금이 부족합니다. 집 위치를 설정하기 위해선 "+Constants.costs.HOME_SET_COST+" 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
                             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, SoundCategory.MASTER,1,1);
                             return;
                         }
 
                         // 돈 차감
-                        Economy.addMoney(player, -500);
+                        Economy.addMoney(player, -Constants.costs.HOME_SET_COST);
 
                         int slotIndex = Integer.parseInt( itemName.split("슬롯 #")[1] );
                         Home.setHome(player, slotIndex, player.getLocation().toBlockLocation().toCenterLocation());
