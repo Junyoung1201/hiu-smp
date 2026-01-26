@@ -75,7 +75,7 @@ public class ShopEvent implements Listener {
             e.setCancelled(true);
 
             // 쉬프트 + 판매
-            if(e.getClick().isRightClick()) {
+            if(e.getClick().isLeftClick()) {
                 int amount = 1;
 
                 if(e.getClick().isShiftClick()) {
@@ -141,7 +141,7 @@ public class ShopEvent implements Listener {
             e.setCancelled(true);
 
             // 쉬프트 + 구매
-            if(e.getClick().isLeftClick()) {
+            if(e.getClick().isRightClick()) {
                 int amount = 1;
 
                 if(e.getClick().isShiftClick()) {

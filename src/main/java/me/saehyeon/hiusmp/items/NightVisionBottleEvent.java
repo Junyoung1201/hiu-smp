@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static me.saehyeon.hiusmp.Constants.items.SI_EXP_BOOSTER_DISPLAY_NAME;
 import static me.saehyeon.hiusmp.Constants.items.SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME;
 
 public class NightVisionBottleEvent implements Listener {
@@ -42,16 +44,21 @@ public class NightVisionBottleEvent implements Listener {
 
     @EventHandler
     void onUse(PlayerInteractEvent e) {
-        if(cooldown.contains(e.getPlayer())) {
-            return;
-        }
 
-        if(PlayerUtil.isMainHandItemName(e.getPlayer(), SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME)) {
+        ItemStack item = e.getPlayer().getInventory().getItemInOffHand();
+        ItemStack item2 = e.getPlayer().getInventory().getItemInMainHand();
+
+        if(ItemUtil.getDisplayName(item).equals(SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME) || ItemUtil.getDisplayName(item2).equals(SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME)) {
             e.setCancelled(true);
+
+            if(cooldown.contains(e.getPlayer())) {
+                return;
+            }
+
             cooldown.add(e.getPlayer());
 
             // 아이템 삭제
-            InventoryUtil.removeItems(e.getPlayer(), (item) -> ItemUtil.getDisplayName(item).equals("§b야간투시"), 1);
+            InventoryUtil.removeItemsByName(e.getPlayer(), SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME, 1);
 
             // 로비로 이동
             e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Constants.items.SI_NIGHT_VISION_TICK,1,false,false,false));
@@ -66,6 +73,7 @@ public class NightVisionBottleEvent implements Listener {
             Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
                 removeNightVisionWhenRejoin.remove(e.getPlayer().getUniqueId());
             },(long)Constants.items.SI_NIGHT_VISION_TICK);
+
         }
     }
 }

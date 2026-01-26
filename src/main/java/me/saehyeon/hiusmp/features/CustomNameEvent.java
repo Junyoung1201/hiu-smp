@@ -22,6 +22,7 @@ public class CustomNameEvent implements Listener {
     @EventHandler
     void onRespawn(PlayerRespawnEvent e) {
         Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
+            CustomName.clearCustomNameTagTextDisplay();
             Player p = e.getPlayer();
             CustomName.teleportFix(p);
         },3);

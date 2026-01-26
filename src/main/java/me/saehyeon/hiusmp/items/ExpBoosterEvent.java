@@ -2,6 +2,7 @@ package me.saehyeon.hiusmp.items;
 
 import me.saehyeon.hiusmp.Main;
 import me.saehyeon.hiusmp.utils.InventoryUtil;
+import me.saehyeon.hiusmp.utils.ItemUtil;
 import me.saehyeon.hiusmp.utils.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +31,23 @@ public class ExpBoosterEvent implements Listener {
 
     @EventHandler
     void onUse(PlayerInteractEvent e) {
-        if(cooldown.contains(e.getPlayer())) {
-            return;
-        }
 
-        if(PlayerUtil.isMainHandItemName(e.getPlayer(), SI_EXP_BOOSTER_DISPLAY_NAME)) {
+        ItemStack item = e.getPlayer().getInventory().getItemInOffHand();
+        ItemStack item2 = e.getPlayer().getInventory().getItemInMainHand();
+
+        if(ItemUtil.getDisplayName(item).equals(SI_EXP_BOOSTER_DISPLAY_NAME) || ItemUtil.getDisplayName(item2).equals(SI_EXP_BOOSTER_DISPLAY_NAME)) {
             e.setCancelled(true);
+
+            if(cooldown.contains(e.getPlayer())) {
+                return;
+            }
+
+            if(ExpBooster.hasBoost(e.getPlayer())) {
+                e.getPlayer().sendMessage("§c이미 경험치 2배가 적용 중입니다.");
+                e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_VILLAGER_NO, SoundCategory.MASTER, 0.7f,1);
+                return;
+            }
+
             cooldown.add(e.getPlayer());
 
             // 아이템 삭제
@@ -46,6 +59,7 @@ public class ExpBoosterEvent implements Listener {
             Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
                 cooldown.remove(e.getPlayer());
             },5);
+
         }
     }
 }

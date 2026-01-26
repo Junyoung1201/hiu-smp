@@ -107,6 +107,7 @@ public class Dice {
                 Economy.addMoney(player, -decreaseMoney);
                 player.sendTitle("§c§l"+finalNumber, "§7"+decreaseMoney+" 히유코인§f을 잃었습니다!", 0, 70, 20);
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.MASTER, 0.7f,1);
+                Bukkit.broadcastMessage("§7"+CustomName.getName(player)+"§f(이)가 주사위 도박에서 §c2배인 §c§l"+decreaseMoney+" 히유코인§c를 잃었습니다!");
                 break;
             case 3:
             case 4:
@@ -126,6 +127,7 @@ public class Dice {
                 Economy.addMoney(player, increaseMoney3);
                 player.sendTitle("§a§l"+finalNumber, "§6"+increaseMoney3+" 히유코인§f을 얻었습니다!", 0, 70, 20);
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.MASTER, 0.7f,1);
+                Bukkit.broadcastMessage("§6"+CustomName.getName(player)+"§f(이)가 주사위 도박에서 §62배인 §6§l"+increaseMoney3+" 히유코인§6를 벌었습니다!");
                 break;
         }
     }
