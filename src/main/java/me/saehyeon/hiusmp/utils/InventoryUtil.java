@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import static me.saehyeon.hiusmp.Constants.items.SI_LOBBY_BACK_PAPER_DISPLAY_NAME;
+
 public class InventoryUtil {
     public static void removeItems(Player player, Predicate<ItemStack> predicate, int amount) {
         for (ItemStack invItem : player.getInventory().getContents()) {
@@ -21,6 +23,10 @@ public class InventoryUtil {
                 }
             }
         }
+    }
+
+    public static void removeItemsByName(Player player, String displayName, int amount) {
+        InventoryUtil.removeItems(player, (item) -> ItemUtil.getDisplayName(item).equals(displayName), amount);
     }
 
     public static void removeItems(Player player, Material material, int amount) {

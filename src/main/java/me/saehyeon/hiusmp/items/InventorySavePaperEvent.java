@@ -1,11 +1,11 @@
 package me.saehyeon.hiusmp.items;
 
 import me.saehyeon.hiusmp.utils.InventoryUtil;
-import me.saehyeon.hiusmp.utils.ItemUtil;
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import static me.saehyeon.hiusmp.Constants.items.SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME;
 
 public class InventorySavePaperEvent implements Listener {
 
@@ -18,13 +18,7 @@ public class InventorySavePaperEvent implements Listener {
             e.setKeepLevel(true);
             e.getDrops().clear();
 
-            InventoryUtil.removeItems(e.getPlayer(), (item) -> {
-                if(item.getItemMeta() != null && item.getType() == Material.PAPER && ItemUtil.getDisplayName(item).equals("§e인벤세이브 스크롤")) {
-                    return true;
-                }
-
-                return false;
-            },1);
+            InventoryUtil.removeItemsByName(e.getPlayer(), SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME, 1);
         }
     }
 }

@@ -16,12 +16,32 @@ public class Constants {
     }
 
     public static class shop {
-        public static int SHOP_ITEM_CUSTOM_MODEL_DATA = 1001;
-        public static int EXTRA_SHOP_ITEM_CUSTOM_MODE_DATA = 1002;
+        public static final int SHOP_ITEM_CUSTOM_MODEL_DATA = 1001;
+        public static final int EXTRA_SHOP_ITEM_CUSTOM_MODE_DATA = 1002;
+
+        public static final String SHOP_SELECT_GUI_TITLE = "상점 선택";
+
+        public static final String BLOCK_SHOP_ICON_NAME = "§f블럭 상점";
+        public static final String MINER_SHOP_ICON_NAME = "§f광물 상점";
+        public static final String FARM_SHOP_ICON_NAME = "§f농작물 상점";
+        public static final String MONSTER_SHOP_ICON_NAME = "§f잡템 상점";
+        public static final String TREASURE_SHOP_ICON_NAME = "§f희귀품 상점";
+        public static final String SPECIAL_SHOP_ICON_NAME = "§d스페셜 상점";
+    }
+
+    public static class timers {
+        public static final long CUSTOM_NAME_TAG_CLEANER_TIMER_INTERVAL = 20L*60L;
     }
 
     public static class costs {
-        public static int HOME_SET_COST = 500;
+        public static final int HOME_SET_COST = 500;
+    }
+
+    public static class items {
+        public static final int SI_NIGHT_VISION_TICK = 20*10*60;
+        public static final String SI_LOBBY_BACK_PAPER_DISPLAY_NAME = "§f§l로비 귀환서";
+        public static final String SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME = "§e인벤세이브 스크롤";
+        public static final String SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME = "§b야간투시";
     }
 
     public static class locations {

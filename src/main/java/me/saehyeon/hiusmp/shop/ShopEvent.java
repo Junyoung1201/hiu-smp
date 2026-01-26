@@ -19,6 +19,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.function.Predicate;
 
+import static me.saehyeon.hiusmp.Constants.shop.*;
+
 public class ShopEvent implements Listener {
 
     boolean isShopGui(InventoryClickEvent e) {
@@ -34,7 +36,7 @@ public class ShopEvent implements Listener {
 
     @EventHandler
     void onShopSelectScreen(InventoryClickEvent e) {
-        if(e.getView().getTitle().equals("상점 선택") && e.getCurrentItem() != null) {
+        if(e.getView().getTitle().equals(SHOP_SELECT_GUI_TITLE) && e.getCurrentItem() != null) {
             e.setCancelled(true);
 
             Player player = (Player) e.getWhoClicked();
@@ -42,22 +44,22 @@ public class ShopEvent implements Listener {
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, SoundCategory.MASTER,0.7f,1);
 
             switch( ItemUtil.getDisplayName(e.getCurrentItem()) ) {
-                case "§f블럭 상점":
+                case BLOCK_SHOP_ICON_NAME:
                     BlockShop.open(player);
                     break;
-                case "§f광물 상점":
+                case MINER_SHOP_ICON_NAME:
                     MinerShop.open(player);
                     break;
-                case "§f희귀품 상점":
+                case TREASURE_SHOP_ICON_NAME:
                     TreasureShop.open(player);
                     break;
-                case "§f농작물 상점":
+                case FARM_SHOP_ICON_NAME:
                     FarmShop.open(player);
                     break;
-                case "§f잡템 상점":
+                case MONSTER_SHOP_ICON_NAME:
                     MonsterShop.open(player);
                     break;
-                case "§d스페셜 상점":
+                case SPECIAL_SHOP_ICON_NAME:
                     SpecialShop.open(player);
                     break;
             }
@@ -119,7 +121,7 @@ public class ShopEvent implements Listener {
 
     @EventHandler
     void onShopClose(InventoryCloseEvent e) {
-        if(e.getView().getTitle().contains("상점") && !e.getView().getTitle().equals("상점 선택")) {
+        if(e.getView().getTitle().contains("상점") && !e.getView().getTitle().equals(SHOP_SELECT_GUI_TITLE)) {
             Player p = (Player) e.getPlayer();
 
             // 상점 선택이 아니라 상점 GUI에 있으면 상점 선택 화면으로 이동

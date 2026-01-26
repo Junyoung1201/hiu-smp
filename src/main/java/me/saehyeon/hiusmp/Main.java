@@ -4,7 +4,9 @@ import me.saehyeon.hiusmp.bonus.AdvancementEvent;
 import me.saehyeon.hiusmp.bonus.MonsterKillEvent;
 import me.saehyeon.hiusmp.economy.Economy;
 import me.saehyeon.hiusmp.features.*;
+import me.saehyeon.hiusmp.items.InstantLobbyBackPaperEvent;
 import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
+import me.saehyeon.hiusmp.items.NightVisionBottleEvent;
 import me.saehyeon.hiusmp.lobby.BlockEvent;
 import me.saehyeon.hiusmp.lobby.ConnectEvent;
 import me.saehyeon.hiusmp.lobby.InteractiveEvent;
@@ -56,23 +58,27 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CustomNameEvent(), this);
         Bukkit.getPluginManager().registerEvents(new InteractiveEvent(), this);
         Bukkit.getPluginManager().registerEvents(new ParkourEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new InventorySavePaperEvent(), this);
         Bukkit.getPluginManager().registerEvents(new DiceEvent(), this);
         Bukkit.getPluginManager().registerEvents(new TownEvent(), this);
         Bukkit.getPluginManager().registerEvents(new ConnectEvent(), this);
         Bukkit.getPluginManager().registerEvents(new AdvancementEvent(), this);
         Bukkit.getPluginManager().registerEvents(new MonsterKillEvent(), this);
 
+        // 아이템 이벤트
+        Bukkit.getPluginManager().registerEvents(new InventorySavePaperEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new InstantLobbyBackPaperEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new NightVisionBottleEvent(), this);
+
+
         Economy.load();
         Home.load();
         CustomName.load();
 
         Bukkit.getScheduler().runTaskLater(this, () -> {
-            CustomName.ensureScoreboard();
-            CustomName.clearCustomNameTagTextDisplay();
-        },150);
+            Constants.init();
 
-        Bukkit.getScheduler().runTaskLater(this, () -> {
+            CustomName.ensureScoreboard();
+
             Bukkit.getOnlinePlayers().forEach(p -> {
                 CustomName.setName(p, CustomName.getName(p));
             });
@@ -81,9 +87,9 @@ public final class Main extends JavaPlugin {
                 world.setGameRule(GameRules.COMMAND_BLOCK_OUTPUT, false);
                 world.setGameRule(GameRules.SEND_COMMAND_FEEDBACK, false);
             });
-
-            Constants.init();
         },30);
+
+        Bukkit.getScheduler().runTaskLater(this, CustomName::startCleanerTimer,150);
     }
 
     @Override

@@ -52,7 +52,7 @@ public class ExtraShopItem {
         return item != null && item.getItemMeta() != null && item.getItemMeta().hasCustomModelData() && item.getItemMeta().getCustomModelData() == Constants.shop.EXTRA_SHOP_ITEM_CUSTOM_MODE_DATA;
     }
 
-    public ItemStack toItemStack() {
+    public ItemStack toShopItem() {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(displayName);

@@ -1,5 +1,6 @@
 package me.saehyeon.hiusmp.features;
 
+import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -8,6 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
@@ -15,6 +17,7 @@ import org.bukkit.scoreboard.Team;
 import java.io.File;
 
 public class CustomName {
+    private static BukkitTask cleanerTimer = null;
     private static YamlConfiguration nameData = new YamlConfiguration();
     private static File nameDataFile = new File(Main.ins.getDataFolder(), "names.yml");
 
@@ -70,6 +73,14 @@ public class CustomName {
         } catch (Exception e) {
             Main.ins.getLogger().warning("이름 데이터 저장 실패함.");
             e.printStackTrace();
+        }
+    }
+
+    public static void startCleanerTimer() {
+        if(cleanerTimer == null) {
+            cleanerTimer = Bukkit.getScheduler().runTaskTimer(Main.ins, () -> {
+                CustomName.clearCustomNameTagTextDisplay();
+            },0L, Constants.timers.CUSTOM_NAME_TAG_CLEANER_TIMER_INTERVAL);
         }
     }
 

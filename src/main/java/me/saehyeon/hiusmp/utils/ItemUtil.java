@@ -1,5 +1,6 @@
 package me.saehyeon.hiusmp.utils;
 
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemUtil {

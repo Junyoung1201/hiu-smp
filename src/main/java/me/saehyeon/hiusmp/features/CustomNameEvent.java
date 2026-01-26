@@ -29,7 +29,7 @@ public class CustomNameEvent implements Listener {
 
     @EventHandler
     void onJoin(PlayerJoinEvent e) {
-        e.setJoinMessage("§e"+e.getPlayer().getName()+"(이)가 히유 목장에 접속했습니다.");
+        e.setJoinMessage("§e"+CustomName.getName(e.getPlayer())+"(이)가 히유 목장에 접속했습니다.");
 
         Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
             CustomName.setName(e.getPlayer(), CustomName.getName(e.getPlayer()));
@@ -38,7 +38,7 @@ public class CustomNameEvent implements Listener {
 
     @EventHandler
     void onQuit(PlayerQuitEvent e) {
-        e.setQuitMessage("§e"+e.getPlayer().getName()+"(이)가 나갔습니다.");
+        e.setQuitMessage("§e"+CustomName.getName(e.getPlayer())+"(이)가 나갔습니다.");
 
         // 월드에서 해당 유저의 이름표 엔티티 지우기
         Bukkit.getWorlds().forEach(world -> {

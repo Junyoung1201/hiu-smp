@@ -5,6 +5,7 @@ import me.saehyeon.hiusmp.features.CustomName;
 import me.saehyeon.hiusmp.features.Dice;
 import me.saehyeon.hiusmp.features.Home;
 import me.saehyeon.hiusmp.features.Teleport;
+import me.saehyeon.hiusmp.items.InstantLobbyBackPaper;
 import me.saehyeon.hiusmp.items.InventorySavePaper;
 import me.saehyeon.hiusmp.parkour.Parkour;
 import me.saehyeon.hiusmp.shop.BlockShop;
@@ -200,6 +201,10 @@ public class Command implements CommandExecutor {
         else if(label.equals("hiu-item")) {
             if(args[0].equals("inv-save-paper")) {
                 ((Player) sender).getInventory().addItem(InventorySavePaper.getItem());
+            }
+
+            else if(args[0].equals("lobby-back-paper")) {
+                ((Player) sender).getInventory().addItem(InstantLobbyBackPaper.getItem());
             }
 
             if(args[0].equals("test")) {
