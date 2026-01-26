@@ -59,8 +59,8 @@ public class ExtraShopItem {
         meta.setCustomModelData(Constants.shop.EXTRA_SHOP_ITEM_CUSTOM_MODE_DATA);
 
         List<String> finalLores = new ArrayList<>(lores);
-        finalLores.add("§7[좌클릭] §6"+sellPrice+"원§f으로 판매");
-        finalLores.add("§7[우클릭] §6"+buyPrice+"원§f으로 구매");
+        finalLores.add("§7[좌클릭] §6"+sellPrice+" 히유코인§f으로 판매");
+        finalLores.add("§7[우클릭] §6"+buyPrice+" 히유코인§f으로 구매");
         finalLores.add("");
         finalLores.add("§f쉬프트 + 클릭으로 10개씩 구매 또는 판매");
 

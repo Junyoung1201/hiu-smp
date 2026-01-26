@@ -1,6 +1,7 @@
 package me.saehyeon.hiusmp.lobby;
 
 import me.saehyeon.hiusmp.parkour.Parkour;
+import me.saehyeon.hiusmp.utils.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -24,8 +25,7 @@ public class NPCEvent implements Listener {
                 String npcName = ChatColor.stripColor(e.getRightClicked().getCustomName());
 
                 if(npcName.equals("야생으로 이동")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:wild run tp "+e.getPlayer().getName()+" 0 78 0");
-                    
+                    PlayerUtil.teleport(e.getPlayer(), "wild", 0, 76, 0, 0,0);
                     e.getPlayer().sendMessage("§c§l야생에 집을 짓지 마세요! §f야생은 2주 마다 초기화됩니다!");
                 }
 
@@ -34,7 +34,7 @@ public class NPCEvent implements Listener {
                 }
 
                 else if(npcName.equals("집터로 이동")) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:town run tp "+e.getPlayer().getName()+" 0.5 -12 0.5");
+                    PlayerUtil.teleport(e.getPlayer(), "town", 0.5D, -12D, 0.5D, 0,0);
                 }
             }
         }

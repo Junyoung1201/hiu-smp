@@ -15,6 +15,8 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class CustomName {
     private static BukkitTask cleanerTimer = null;

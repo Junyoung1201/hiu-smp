@@ -53,7 +53,7 @@ public class ShopItem {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§f"+displayName);
-        meta.setLore(Arrays.asList("§7[좌클릭] §6"+sellPrice+"원§f으로 판매", "§7[우클릭] §6"+buyPrice+"원§f으로 구매","","§f쉬프트 + 클릭으로 10개씩 구매 또는 판매"));
+        meta.setLore(Arrays.asList("§7[좌클릭] §6"+sellPrice+" 히유코인§f으로 판매", "§7[우클릭] §6"+buyPrice+" 히유코인§f으로 구매","","§f쉬프트 + 클릭으로 10개씩 구매 또는 판매"));
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
         // 아이템의 custom model data가 1001 이면 -> 상점 아이템임

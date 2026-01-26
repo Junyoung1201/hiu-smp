@@ -4,6 +4,7 @@ import me.saehyeon.hiusmp.bonus.AdvancementEvent;
 import me.saehyeon.hiusmp.bonus.MonsterKillEvent;
 import me.saehyeon.hiusmp.economy.Economy;
 import me.saehyeon.hiusmp.features.*;
+import me.saehyeon.hiusmp.items.ExpBoosterEvent;
 import me.saehyeon.hiusmp.items.InstantLobbyBackPaperEvent;
 import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
 import me.saehyeon.hiusmp.items.NightVisionBottleEvent;
@@ -68,6 +69,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventorySavePaperEvent(), this);
         Bukkit.getPluginManager().registerEvents(new InstantLobbyBackPaperEvent(), this);
         Bukkit.getPluginManager().registerEvents(new NightVisionBottleEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new ExpBoosterEvent(), this);
 
 
         Economy.load();

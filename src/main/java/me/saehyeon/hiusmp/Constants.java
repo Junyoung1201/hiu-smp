@@ -35,13 +35,16 @@ public class Constants {
 
     public static class costs {
         public static final int HOME_SET_COST = 500;
+        public static final int CUSTOM_NAME_CHANGE_COST = 6500;
     }
 
     public static class items {
         public static final int SI_NIGHT_VISION_TICK = 20*10*60;
+        public static final long SI_EXP_BOOSTER_TICK = 20L * 60L * 10L;
         public static final String SI_LOBBY_BACK_PAPER_DISPLAY_NAME = "§f§l로비 귀환서";
         public static final String SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME = "§e인벤세이브 스크롤";
         public static final String SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME = "§b야간투시";
+        public static final String SI_EXP_BOOSTER_DISPLAY_NAME = "§a§l경험치 부스터";
     }
 
     public static class locations {
@@ -52,5 +55,6 @@ public class Constants {
         public static Location TOWN_SPAWN_POS1 = null;
         public static Location TOWN_SPAWN_POS2 = null;
         public static Location TOWN_SPAWN = null;
+        public static Location WILD_SPAWN = null;
     }
 }

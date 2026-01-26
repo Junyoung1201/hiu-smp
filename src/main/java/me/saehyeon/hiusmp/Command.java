@@ -17,6 +17,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import static me.saehyeon.hiusmp.Constants.costs.CUSTOM_NAME_CHANGE_COST;
+
 public class Command implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
@@ -129,10 +131,41 @@ public class Command implements CommandExecutor {
         }
 
         else if(label.equals("이름")) {
+            if( (sender.isOp() || sender == Bukkit.getConsoleSender()) && args.length == 2) {
+                Player target = Bukkit.getPlayer(args[0]);
+                String name = args[1];
+
+                if(target != null) {
+                    sender.sendMessage("§7"+target.getName()+"§f의 이름을 "+name+"(으)로 변경했습니다.");
+                } else {
+                    sender.sendMessage("§c해당 플레이어를 찾을 수 없습니다.");
+                }
+
+                return true;
+            }
+
             try {
                 if(args.length == 0) {
                     sender.sendMessage("§c사용법: /이름 [한글 이름]");
                     return false;
+                }
+
+                if(CustomName.getName((Player) sender).equals(args[0])) {
+                    sender.sendMessage("§c이미 해당 이름으로 설정되어 있습니다.");
+                    return false;
+                }
+
+                if(!args[0].equals(sender.getName())) {
+                    // 최초 이름 변경만 무료
+                    if(!CustomName.getName((Player) sender).equals((sender).getName())) {
+                        if(Economy.getMoney(((Player) sender)) < CUSTOM_NAME_CHANGE_COST) {
+                            sender.sendMessage("§c소지금이 부족합니다. 이름 변경을 위해서는 "+CUSTOM_NAME_CHANGE_COST+" 히유코인이 필요합니다.");
+                            return false;
+                        } else {
+                            Economy.addMoney((Player) sender, -CUSTOM_NAME_CHANGE_COST);
+                            sender.sendMessage("이름 변경을 위해 §6"+CUSTOM_NAME_CHANGE_COST+" 히유골드§f를 소비했습니다.");
+                        }
+                    }
                 }
 
                 CustomName.setName((Player) sender, args[0]);
@@ -194,7 +227,7 @@ public class Command implements CommandExecutor {
             sender.sendMessage("§6/집터: §f집터로 이동합니다.");
             sender.sendMessage("§6/집 또는 /홈: §f집으로 설정된 위치로 텔레포트하기 위한 화면을 엽니다.");
             sender.sendMessage("§6/집설정: §f집 위치 설정을 위한 화면을 엽니다.");
-            sender.sendMessage("§6/이름 [한글 이름]: §f한글 이름을 설정합니다.");
+            sender.sendMessage("§6/이름 [한글 이름]: §f한글 이름을 설정합니다. 최초 이름 변경 시를 제외하고 §6"+CUSTOM_NAME_CHANGE_COST+" 히유코인§f을 소비합니다.");
             sender.sendMessage("");
         }
 
