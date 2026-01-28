@@ -23,8 +23,8 @@ public class DiceEvent implements Listener {
 
                 int betMoney = Integer.parseInt( e.getMessage() );
 
-                if(betMoney <= 0) {
-                    e.getPlayer().sendMessage("§c배팅 금액은 자연수여야 합니다.");
+                if(betMoney < 500) {
+                    e.getPlayer().sendMessage("§c배팅 금액은 최소 500 히유코인 이상이어야 합니다.");
                     return;
                 }
 

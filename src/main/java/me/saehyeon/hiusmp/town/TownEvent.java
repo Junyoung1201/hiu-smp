@@ -21,11 +21,6 @@ public class TownEvent implements Listener {
     }
 
     @EventHandler
-    void onAnimalSpawn() {
-
-    }
-
-    @EventHandler
     void onMobSpawn(CreatureSpawnEvent e) {
         if(e.getEntity().getWorld().getName().equals("town")) {
             e.setCancelled(true);
