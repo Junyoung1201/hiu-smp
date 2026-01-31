@@ -36,6 +36,7 @@ public class Constants {
     public static class costs {
         public static final int HOME_SET_COST = 500;
         public static final int CUSTOM_NAME_CHANGE_COST = 6500;
+        public static final int TPA_REQUEST_COST = 500;
     }
 
     public static class items {

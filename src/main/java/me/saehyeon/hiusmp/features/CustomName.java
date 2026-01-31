@@ -16,6 +16,7 @@ import org.bukkit.scoreboard.Team;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class CustomName {
@@ -151,7 +152,9 @@ public class CustomName {
         for(World world : Bukkit.getWorlds()) {
             for(Entity nameTag : world.getEntitiesByClass(TextDisplay.class)) {
                 if(nameTag.getVehicle() == null || nameTag.getVehicle().getType() != EntityType.PLAYER) {
-                    nameTag.remove();
+                    if(nameTag.getScoreboardTags().stream().anyMatch(tag -> tag.startsWith("player-name-tag_"))) {
+                        nameTag.remove();
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ package me.saehyeon.hiusmp.town;
 import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.utils.LocationUtil;
 import org.bukkit.GameMode;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -23,6 +24,10 @@ public class TownEvent implements Listener {
     @EventHandler
     void onMobSpawn(CreatureSpawnEvent e) {
         if(e.getEntity().getWorld().getName().equals("town")) {
+            if( e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.BREEDING || e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.SPAWNER_EGG || e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.EGG || e.getSpawnReason() == CreatureSpawnEvent.SpawnReason.BUCKET) {
+                return;
+            }
+
             e.setCancelled(true);
         }
     }

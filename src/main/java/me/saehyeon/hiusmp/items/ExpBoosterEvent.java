@@ -26,6 +26,8 @@ public class ExpBoosterEvent implements Listener {
     void onExpGet(PlayerExpChangeEvent e) {
         if(ExpBooster.hasBoost(e.getPlayer())) {
             e.setAmount(e.getAmount()*2);
+        } else {
+            e.setAmount(e.getAmount() / 2);
         }
     }
 

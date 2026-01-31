@@ -1,6 +1,7 @@
 package me.saehyeon.hiusmp.features;
 
 import me.saehyeon.hiusmp.Main;
+import me.saehyeon.hiusmp.economy.Economy;
 import me.saehyeon.hiusmp.utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static me.saehyeon.hiusmp.Constants.costs.TPA_REQUEST_COST;
 
 public class Teleport {
     private static HashMap<Player, List<Player>> tpaMap = new HashMap<>();
@@ -48,6 +51,13 @@ public class Teleport {
             return;
         }
 
+        if(Economy.getMoney(from) < TPA_REQUEST_COST) {
+            from.sendMessage("§c티피 요청을 위해서는 최소 "+TPA_REQUEST_COST+" 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(from)+" 히유코인)");
+            return;
+        } else {
+            Economy.addMoney(from, -TPA_REQUEST_COST);
+        }
+
         tpaMap.get(to).add(from);
 
         // TP 요청하기
@@ -57,7 +67,7 @@ public class Teleport {
         ChatUtil.sendClickCommandMessage(to,"§c§l[ TP 거부하기 ]","tpa-deny "+from.getName());
         to.sendMessage("");
 
-        from.sendMessage("§7"+to.getName()+"§f에게 TP를 요청했습니다. 1분 내에 수락하지 않을 경우 만료됩니다.");
+        from.sendMessage("§7"+to.getName()+"§f에게 TP를 요청했습니다. 1분 내에 수락하지 않을 경우 만료됩니다. §6"+TPA_REQUEST_COST+" 히유코인을 소모했습니다.");
 
         tpaRequestExpiredTimer.put(from, Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
             teleportCancel(from,true);
@@ -210,6 +220,11 @@ public class Teleport {
         if(teleportWaitTimer.containsKey(player)) {
             teleportWaitTimer.get(player).forEach(BukkitTask::cancel);
             teleportWaitTimer.remove(player);
+        }
+
+        if(tpaRequestExpiredTimer.containsKey(player)) {
+            tpaRequestExpiredTimer.get(player).cancel();
+            tpaRequestExpiredTimer.remove(player);
         }
 
         // tp waiting 에서 삭제

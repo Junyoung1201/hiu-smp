@@ -12,8 +12,9 @@ public class TreasureShop {
 
         ShopItem[] items = new ShopItem[] {
                 new ShopItem("네더라이트 형판", Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 1000,15000),
-                new ShopItem("네더의 별", Material.NETHER_STAR, 20000,30000),
+                new ShopItem("네더의 별", Material.NETHER_STAR, 25000,30000),
                 new ShopItem("바다의 심장", Material.HEART_OF_THE_SEA, 5000,13000),
+                new ShopItem("§e인첸트된 황금사과", Material.ENCHANTED_GOLDEN_APPLE, 7000,15000),
                 new ShopItem("쉘커 껍데기", Material.SHULKER_SHELL, 5000,8000),
                 new ShopItem("돌풍구", Material.WIND_CHARGE, 2000,10000),
                 new ShopItem("겉날개", Material.ELYTRA, 45000,225000),
@@ -22,6 +23,14 @@ public class TreasureShop {
                 new ShopItem("토템", Material.TOTEM_OF_UNDYING, 40000,200000),
                 new ShopItem("엔더드래곤 알", Material.DRAGON_EGG, 10000,25000),
                 new ShopItem("팬텀 막", Material.PHANTOM_MEMBRANE, 2500,5000),
+                new ShopItem("소 스폰알", Material.COW_SPAWN_EGG, 0,2500),
+                new ShopItem("양 스폰알", Material.SHEEP_SPAWN_EGG, 0,2500),
+                new ShopItem("돼지 스폰알", Material.PIG_SPAWN_EGG, 0,2500),
+                new ShopItem("닭 스폰알", Material.CHICKEN_SPAWN_EGG, 0,2500),
+                new ShopItem("말 스폰알", Material.HORSE_SPAWN_EGG, 0,5000),
+                new ShopItem("아홀로틀 스폰알", Material.AXOLOTL_SPAWN_EGG, 0,10000),
+                new ShopItem("벌 스폰알", Material.BEE_SPAWN_EGG, 0,2500),
+                new ShopItem("고양이 스폰알", Material.CAT_SPAWN_EGG, 0,3500),
         };
 
         for(int i = 0 ; i < items.length; i++) {

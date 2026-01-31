@@ -4,6 +4,7 @@ import me.saehyeon.hiusmp.bonus.AdvancementEvent;
 import me.saehyeon.hiusmp.bonus.MonsterKillEvent;
 import me.saehyeon.hiusmp.economy.Economy;
 import me.saehyeon.hiusmp.features.*;
+import me.saehyeon.hiusmp.fun.HardMonsterEvent;
 import me.saehyeon.hiusmp.items.ExpBoosterEvent;
 import me.saehyeon.hiusmp.items.InstantLobbyBackPaperEvent;
 import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
@@ -71,6 +72,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new NightVisionBottleEvent(), this);
         Bukkit.getPluginManager().registerEvents(new ExpBoosterEvent(), this);
 
+        // 게임 어렵게 만드는거
+        Bukkit.getPluginManager().registerEvents(new HardMonsterEvent(), this);
 
         Economy.load();
         Home.load();
