@@ -77,21 +77,27 @@ public class SpecialShop {
         lootingBookMeta.addStoredEnchant(Enchantment.LOOTING, 3, false);
         lootingBook.setItemMeta(lootingBookMeta);
 
+        // 인첸트북 아이템 - 약탈 3
+        ItemStack fireInpectBook = new ItemStack(Material.ENCHANTED_BOOK, 1);
+        EnchantmentStorageMeta fireInpectBookMeta = (EnchantmentStorageMeta) fireInpectBook.getItemMeta();
+        fireInpectBookMeta.addStoredEnchant(Enchantment.FIRE_ASPECT, 2, false);
+        fireInpectBook.setItemMeta(fireInpectBookMeta);
+
         ExtraShopItem[] items = new ExtraShopItem[] {
-            new ExtraShopItem(Material.PAPER, SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME, 500, 700)
+            new ExtraShopItem(Material.PAPER, SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME, 500, 1000)
                     .registerRealItem(InventorySavePaper.getItem())
                     .setLore(Arrays.asList("§f지니고 있으면 인벤토리의 아이템과 레벨을 보호합니다.","")),
 
-            new ExtraShopItem(Material.PAPER, SI_LOBBY_BACK_PAPER_DISPLAY_NAME, 100, 250)
+            new ExtraShopItem(Material.PAPER, SI_LOBBY_BACK_PAPER_DISPLAY_NAME, 100, 350)
                     .registerRealItem(InstantLobbyBackPaper.getItem())
                     .setLore(Arrays.asList("§7우클릭§f하면 로비로 즉시 이동합니다.","")),
 
-            new ExtraShopItem(NightVisionBottle.getItem().getType(), SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME, 250, 750)
+            new ExtraShopItem(NightVisionBottle.getItem().getType(), SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME, 250, 1500)
                     .registerRealItem(NightVisionBottle.getItem())
                     .setLore(Arrays.asList("§7우클릭§f하면 §7"+((int)(Constants.items.SI_NIGHT_VISION_TICK / 20 / 60))+"분의 야간투시§f를 부여받습니다.","§f서버를 나가면 즉시 야간투시가 사라집니다.","")),
 
 
-            new ExtraShopItem(ExpBooster.getItem().getType(), SI_EXP_BOOSTER_DISPLAY_NAME, 1000, 4500)
+            new ExtraShopItem(ExpBooster.getItem().getType(), SI_EXP_BOOSTER_DISPLAY_NAME, 1000, 7500)
                     .registerRealItem(ExpBooster.getItem())
                     .setLore(Arrays.asList("§7우클릭§f하면 §7"+((int)(Constants.items.SI_EXP_BOOSTER_TICK / 20 / 60))+"분§f 동안 경험치 2배 부스팅을 적용합니다.","§f서버를 나가도 사라지지 않습니다.","")),
 
@@ -129,7 +135,11 @@ public class SpecialShop {
 
             new ExtraShopItem(lootingBook.getType(), "§b약탈 3 인첸트 북", 0,140000)
                     .registerRealItem(lootingBook)
-                    .setLore(Arrays.asList("§f약탈 3 인첸트 북입니다."))
+                    .setLore(Arrays.asList("§f약탈 3 인첸트 북입니다.")),
+
+            new ExtraShopItem(fireInpectBook.getType(), "§b발화 2 인첸트 북", 0,180000)
+                    .registerRealItem(fireInpectBook)
+                    .setLore(Arrays.asList("§f발화 2 인첸트 북입니다."))
         };
 
         player.openInventory(inv);

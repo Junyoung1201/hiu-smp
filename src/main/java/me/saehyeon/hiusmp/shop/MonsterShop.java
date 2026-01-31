@@ -13,6 +13,7 @@ public class MonsterShop {
         ShopItem[] items = new ShopItem[] {
             new ShopItem("썩은 고기", Material.ROTTEN_FLESH, 20,60),
             new ShopItem("뼈", Material.BONE, 20,60),
+            new ShopItem("화살", Material.ARROW, 20,50),
             new ShopItem("실", Material.STRING, 10,30),
             new ShopItem("거미 눈", Material.SPIDER_EYE, 30,90),
             new ShopItem("토끼 가죽", Material.RABBIT_HIDE, 20,60),
@@ -20,6 +21,8 @@ public class MonsterShop {
             new ShopItem("가죽", Material.LEATHER, 30,80),
             new ShopItem("양털", Material.WHITE_WOOL, 10,30),
             new ShopItem("깃털", Material.FEATHER, 10,30),
+            new ShopItem("화약", Material.GUNPOWDER, 10, 30),
+            new ShopItem("발광 먹물 주머니", Material.GLOW_INK_SAC, 50, 150),
 
             new ShopItem("소고기", Material.BEEF, 30, 90),
             new ShopItem("돼지고기", Material.PORKCHOP, 40, 100),
@@ -27,6 +30,7 @@ public class MonsterShop {
             new ShopItem("양고기", Material.MUTTON, 30, 80),
             new ShopItem("달걀", Material.EGG, 10, 15),
             new ShopItem("책",Material.BOOK, 10, 15),
+            new ShopItem("슬라임볼",Material.SLIME_BALL, 25, 50)
         };
 
         for(int i = 0 ; i < items.length; i++) {

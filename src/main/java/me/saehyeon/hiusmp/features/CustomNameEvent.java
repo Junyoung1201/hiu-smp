@@ -34,6 +34,10 @@ public class CustomNameEvent implements Listener {
 
         Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
             CustomName.setName(e.getPlayer(), CustomName.getName(e.getPlayer()));
+
+            if(CustomName.getName(e.getPlayer()).equals(e.getPlayer().getName())) {
+                e.getPlayer().sendMessage("당신은 §6무료로 한글 닉네임§f을 설정할 수 있습니다! §6/이름 [한글 닉네임]§f을 입력하여 설정할 수 있습니다.");
+            }
         },3);
     }
 

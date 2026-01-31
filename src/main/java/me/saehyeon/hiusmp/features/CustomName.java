@@ -3,6 +3,7 @@ package me.saehyeon.hiusmp.features;
 import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -15,14 +16,16 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class CustomName {
     private static BukkitTask cleanerTimer = null;
+
     private static YamlConfiguration nameData = new YamlConfiguration();
     private static File nameDataFile = new File(Main.ins.getDataFolder(), "names.yml");
+
+    private static YamlConfiguration prefixData = new YamlConfiguration();
+    private static File prefixDataFile = new File(Main.ins.getDataFolder(), "prefixs.yml");
 
     private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
 
@@ -63,6 +66,14 @@ public class CustomName {
             Main.ins.getLogger().info("이름 데이터 로드함.");
             nameData.load(nameDataFile);
 
+            // prefix
+            if(!prefixDataFile.exists()) {
+                prefixDataFile.createNewFile();
+            }
+
+            prefixData.load(prefixDataFile);
+            Main.ins.getLogger().info("칭호 데이터 로드함.");
+
         } catch (Exception e) {
             Main.ins.getLogger().warning("이름 로드 실패함.");
             e.printStackTrace();
@@ -71,12 +82,78 @@ public class CustomName {
 
     public static void save() {
         try {
-            Main.ins.getLogger().warning("이름 데이터 저장함.");
             nameData.save(nameDataFile);
+            Main.ins.getLogger().info("이름 데이터 저장함.");
+
+            prefixData.save(prefixDataFile);
+            Main.ins.getLogger().info("칭호 데이터 저장함.");
+
         } catch (Exception e) {
             Main.ins.getLogger().warning("이름 데이터 저장 실패함.");
             e.printStackTrace();
         }
+    }
+
+    public static List<String> getPrefixList(Player player) {
+        return (List<String>) prefixData.get(player.getUniqueId().toString(), Arrays.asList());
+    }
+
+    public static String getPrefixString(Player player) {
+        return String.join(" ",getPrefixList(player));
+    }
+
+    public static boolean hasPrefix(Player player) {
+        return prefixData.contains(player.getUniqueId().toString());
+    }
+
+    public static void addPrefix(String uuid, String prefix) {
+        prefix = ChatColor.translateAlternateColorCodes('&',prefix);
+
+        List<String> arr = (List<String>) prefixData.get(uuid, new ArrayList<>());
+
+        // YAML에서 가져온 리스트는 불변일 수 있으므로 새로운 ArrayList로 복사
+        List<String> mutableArr = new ArrayList<>(arr);
+
+        if(!mutableArr.contains(prefix)) {
+            mutableArr.add(prefix);
+            prefixData.set(uuid, mutableArr);
+        }
+
+        Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+
+        if(player != null) {
+            updateNameTag(player);
+        }
+    }
+
+    public static void addPrefix(Player player, String prefix) {
+        prefix = ChatColor.translateAlternateColorCodes('&',prefix);
+
+        String uuid = player.getUniqueId().toString();
+        List<String> arr = (List<String>) prefixData.get(uuid, new ArrayList<>());
+
+        // YAML에서 가져온 리스트는 불변일 수 있으므로 새로운 ArrayList로 복사
+        List<String> mutableArr = new ArrayList<>(arr);
+
+        if(!mutableArr.contains(prefix)) {
+            mutableArr.add(prefix);
+            prefixData.set(uuid, mutableArr);
+        }
+
+        updateNameTag(player);
+    }
+
+    public static void removePrefix(Player player, String prefix) {
+        prefix = ChatColor.translateAlternateColorCodes('&',prefix);
+
+        String uuid = player.getUniqueId().toString();
+        List<String> arr = (List<String>) prefixData.get(uuid, new ArrayList<>());
+
+        // YAML에서 가져온 리스트는 불변일 수 있으므로 새로운 ArrayList로 복사
+        List<String> mutableArr = new ArrayList<>(arr);
+        mutableArr.remove(prefix);
+        prefixData.set(uuid, mutableArr);
+        updateNameTag(player);
     }
 
     public static void startCleanerTimer() {
@@ -109,9 +186,11 @@ public class CustomName {
         },5);
     }
 
-    public static void setName(Player player, String name) {
+    private static String prefixPad(String str) {
+        return str.equals(" ") || str.isEmpty() ? "§f" : " §f";
+    }
 
-        nameData.set(player.getUniqueId().toString(),name);
+    public static void updateNameTag(Player player) {
 
         // 기존 플레이어에게 탑승해 있는 text display 가쟈오기 시도
         Entity nameTag = null;
@@ -122,16 +201,19 @@ public class CustomName {
             }
         }
 
-        player.setPlayerListName(name);
-        player.setDisplayName(name);
-        player.setCustomName(name);
+        String name = getName(player);
+        String prefix = getPrefixString(player);
+
+        player.setPlayerListName(prefix+prefixPad(prefix)+name);
+        player.setDisplayName(prefix+prefixPad(prefix)+name);
+        player.setCustomName(prefix+prefixPad(prefix)+name);
         player.setCustomNameVisible(true);
 
         if(nameTag != null) {
 
             TextDisplay textDisplay = (TextDisplay) nameTag;
             textDisplay.setCustomNameVisible(true);
-            textDisplay.setCustomName(name);
+            textDisplay.setCustomName(prefix+prefixPad(prefix)+name);
 
         } else {
 
@@ -141,11 +223,15 @@ public class CustomName {
             textDisplay.setText("");
             textDisplay.setTextOpacity((byte)0);
             newNameTag.setCustomNameVisible(true);
-            newNameTag.setCustomName(name);
+            newNameTag.setCustomName(prefix+prefixPad(prefix)+name);
             newNameTag.setSilent(true);
             newNameTag.addScoreboardTag("player-name-tag_"+player.getUniqueId());
             player.addPassenger(newNameTag);
         }
+    }
+
+    public static void setName(Player player, String name) {
+        nameData.set(player.getUniqueId().toString(),name);
     }
 
     public static void clearCustomNameTagTextDisplay() {

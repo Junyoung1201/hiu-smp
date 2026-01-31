@@ -5,6 +5,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.util.List;
+import java.util.Set;
 
 public class Economy {
     private static YamlConfiguration economyData = new YamlConfiguration();
@@ -18,8 +20,19 @@ public class Economy {
         economyData.set("money."+player.getUniqueId(), value+getMoney(player));
     }
 
+    public static int getMoney(String uuid) {
+        return Math.max( economyData.getInt("money."+uuid, 0), 0);
+    }
+
     public static int getMoney(Player player) {
         return Math.max( economyData.getInt("money."+player.getUniqueId(), 0), 0);
+    }
+
+    public static Set<String> getPlayerUUIDs() {
+        if(economyData.getConfigurationSection("money") == null) {
+            return Set.of();
+        }
+        return economyData.getConfigurationSection("money").getKeys(false);
     }
 
     public static void load() {

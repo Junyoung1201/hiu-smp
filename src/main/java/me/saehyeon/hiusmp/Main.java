@@ -3,7 +3,9 @@ package me.saehyeon.hiusmp;
 import me.saehyeon.hiusmp.bonus.AdvancementEvent;
 import me.saehyeon.hiusmp.bonus.MonsterKillEvent;
 import me.saehyeon.hiusmp.economy.Economy;
+import me.saehyeon.hiusmp.economy.RichPrefixTimer;
 import me.saehyeon.hiusmp.features.*;
+import me.saehyeon.hiusmp.fun.DurabilityEvent;
 import me.saehyeon.hiusmp.fun.HardMonsterEvent;
 import me.saehyeon.hiusmp.items.ExpBoosterEvent;
 import me.saehyeon.hiusmp.items.InstantLobbyBackPaperEvent;
@@ -18,6 +20,7 @@ import me.saehyeon.hiusmp.parkour.ParkourEvent;
 import me.saehyeon.hiusmp.shop.ShopEvent;
 import me.saehyeon.hiusmp.town.TownEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
 import org.bukkit.GameRules;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,6 +50,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("집터").setExecutor(new Command());
         Bukkit.getPluginCommand("도움말").setExecutor(new Command());
         Bukkit.getPluginCommand("hiu-item").setExecutor(new Command());
+        Bukkit.getPluginCommand("prefix").setExecutor(new Command());
+        Bukkit.getPluginCommand("칭호").setExecutor(new Command());
 
         Bukkit.getPluginCommand("상점").setTabCompleter(new TabComplete());
         Bukkit.getPluginCommand("돈").setTabCompleter(new TabComplete());
@@ -74,6 +79,7 @@ public final class Main extends JavaPlugin {
 
         // 게임 어렵게 만드는거
         Bukkit.getPluginManager().registerEvents(new HardMonsterEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new DurabilityEvent(), this);
 
         Economy.load();
         Home.load();
@@ -88,13 +94,16 @@ public final class Main extends JavaPlugin {
                 CustomName.setName(p, CustomName.getName(p));
             });
 
+            // 타이머 시작
+            CustomName.startCleanerTimer();
+            RichPrefixTimer.startTimer();
+
             Bukkit.getWorlds().forEach(world -> {
                 world.setGameRule(GameRules.COMMAND_BLOCK_OUTPUT, false);
                 world.setGameRule(GameRules.SEND_COMMAND_FEEDBACK, false);
+                world.setDifficulty(Difficulty.HARD);
             });
         },30);
-
-        Bukkit.getScheduler().runTaskLater(this, CustomName::startCleanerTimer,150);
     }
 
     @Override

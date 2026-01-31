@@ -10,6 +10,7 @@ commands:
   상점:
   돈:
   송금:
+  칭호:
   tpa:
   tpa-accept:
   tpa-deny:
@@ -25,3 +26,4 @@ commands:
   나가기:
   집터:
   도움말:
+  prefix:

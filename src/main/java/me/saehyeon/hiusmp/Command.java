@@ -17,6 +17,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static me.saehyeon.hiusmp.Constants.costs.CUSTOM_NAME_CHANGE_COST;
 
 public class Command implements CommandExecutor {
@@ -24,6 +27,61 @@ public class Command implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if(label.equals("상점")) {
             ShopManager.openSelectScreen((Player) sender);
+        }
+
+        else if(label.equals("칭호")) {
+            if(!sender.isOp() && !sender.equals(Bukkit.getConsoleSender())) {
+                sender.sendMessage("§c이 명령어를 사용할 권한이 없습니다.");
+                return false;
+            }
+
+            try {
+                if(args.length < 2) {
+                    sender.sendMessage("§c사용법: /칭호 [추가/삭제] [플레이어 이름] [칭호 내용...]");
+                    return false;
+                }
+
+                String action = args[0];
+                Player target = Bukkit.getPlayer(args[1]);
+
+                if(target == null) {
+                    sender.sendMessage("§c"+args[1]+"(이)라는 플레이어를 찾을 수 없습니다.");
+                    return false;
+                }
+
+                // args[2]부터 끝까지를 칭호 내용으로 합치기
+                StringBuilder prefixBuilder = new StringBuilder();
+                for(int i = 2; i < args.length; i++) {
+                    if(i > 2) {
+                        prefixBuilder.append(" ");
+                    }
+                    prefixBuilder.append(args[i]);
+                }
+                String prefix = prefixBuilder.toString();
+
+                if(prefix.isEmpty()) {
+                    sender.sendMessage("§c칭호 내용을 입력해주세요.");
+                    return false;
+                }
+
+                if(action.equals("추가")) {
+                    CustomName.addPrefix(target, prefix);
+                    sender.sendMessage("§7"+target.getName()+"§f에게 칭호 '"+prefix+"§f'(을)를 추가했습니다.");
+                    target.sendMessage("칭호 '"+prefix+"§f'(이)가 추가되었습니다.");
+                }
+                else if(action.equals("삭제")) {
+                    CustomName.removePrefix(target, prefix);
+                    sender.sendMessage("§7"+target.getName()+"§f의 칭호 '"+prefix+"§f'(을)를 삭제했습니다.");
+                    target.sendMessage("칭호 '"+prefix+"§f'(이)가 삭제되었습니다.");
+                }
+                else {
+                    sender.sendMessage("§c사용법: /칭호 [추가/삭제] [플레이어 이름] [칭호 내용...]");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                sender.sendMessage("§c사용법: /칭호 [추가/삭제] [플레이어 이름] [칭호 내용...]");
+            }
         }
 
         else if(label.equals("돈")) {
