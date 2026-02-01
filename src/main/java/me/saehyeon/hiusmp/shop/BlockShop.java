@@ -7,7 +7,7 @@ import org.bukkit.inventory.Inventory;
 
 public class BlockShop {
     public static void open(Player player) {
-        Inventory inv = Bukkit.createInventory(null, 54, "블럭 상점");
+        Inventory inv = Bukkit.createInventory(null, 54, "블럭 상점 #1");
         player.openInventory(inv);
 
         ShopItem[] items = new ShopItem[] {

@@ -62,7 +62,7 @@ public class ExtraShopItem {
         finalLores.add("§7[좌클릭] §6"+sellPrice+" 히유코인§f으로 판매");
         finalLores.add("§7[우클릭] §6"+buyPrice+" 히유코인§f으로 구매");
         finalLores.add("");
-        finalLores.add("§f쉬프트 + 클릭으로 10개씩 구매 또는 판매");
+        finalLores.add("§f쉬프트 + 클릭으로 64개씩 구매 또는 판매");
 
         meta.setLore(finalLores);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

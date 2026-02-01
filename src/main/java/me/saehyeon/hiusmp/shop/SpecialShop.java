@@ -84,9 +84,9 @@ public class SpecialShop {
         fireInpectBook.setItemMeta(fireInpectBookMeta);
 
         ExtraShopItem[] items = new ExtraShopItem[] {
-//            new ExtraShopItem(Material.PAPER, SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME, 500, 1000)
-//                    .registerRealItem(InventorySavePaper.getItem())
-//                    .setLore(Arrays.asList("§f지니고 있으면 인벤토리의 아이템과 레벨을 보호합니다.","")),
+            new ExtraShopItem(Material.PAPER, SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME, 1000, 100000000)
+                    .registerRealItem(InventorySavePaper.getItem())
+                    .setLore(Arrays.asList("§c§l히유 SMP 시즌 2 업데이트를 위해 인벤토리 스크롤은 현재 기능 중지된 상태입니다!","")),
 
             new ExtraShopItem(Material.PAPER, SI_LOBBY_BACK_PAPER_DISPLAY_NAME, 100, 350)
                     .registerRealItem(InstantLobbyBackPaper.getItem())

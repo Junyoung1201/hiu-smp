@@ -21,7 +21,7 @@ public class Constants {
 
         public static final String SHOP_SELECT_GUI_TITLE = "상점 선택";
 
-        public static final String BLOCK_SHOP_ICON_NAME = "§f블럭 상점";
+        public static final String BLOCK_SHOP_ICON_NAME = "§f블럭 상점 #1";
         public static final String BLOCK_SHOP_TWO_ICON_NAME = "§f블럭 상점 #2";
         public static final String MINER_SHOP_ICON_NAME = "§f광물 상점";
         public static final String FARM_SHOP_ICON_NAME = "§f농작물 상점";
