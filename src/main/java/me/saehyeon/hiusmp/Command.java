@@ -1,6 +1,7 @@
 package me.saehyeon.hiusmp;
 
 import me.saehyeon.hiusmp.economy.Economy;
+import me.saehyeon.hiusmp.economy.Estate;
 import me.saehyeon.hiusmp.features.CustomName;
 import me.saehyeon.hiusmp.features.Dice;
 import me.saehyeon.hiusmp.features.Home;
@@ -8,7 +9,6 @@ import me.saehyeon.hiusmp.features.Teleport;
 import me.saehyeon.hiusmp.items.InstantLobbyBackPaper;
 import me.saehyeon.hiusmp.items.InventorySavePaper;
 import me.saehyeon.hiusmp.parkour.Parkour;
-import me.saehyeon.hiusmp.shop.BlockShop;
 import me.saehyeon.hiusmp.shop.ShopManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static me.saehyeon.hiusmp.Constants.costs.CUSTOM_NAME_CHANGE_COST;
 
@@ -27,6 +26,127 @@ public class Command implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if(label.equals("상점")) {
             ShopManager.openSelectScreen((Player) sender);
+        }
+
+        else if(label.equals("땅")) {
+            if(sender instanceof Player player) {
+                if(!player.getWorld().getName().equals("town")) {
+                    player.sendMessage("§c이 월드에서는 땅을 구매할 수 없습니다.");
+                    return false;
+                }
+
+                if(args[0].equals("구매")) {
+                    Estate.buyCurrentChunk(player);
+                }
+
+                else if(args[0].equals("조회")) {
+                    Estate.whois(player);
+                }
+
+                else if(args[0].equals("도움말")) {
+                    player.sendMessage("");
+                    player.sendMessage("§6§l[ 땅 명령어 도움말 ]");
+                    player.sendMessage("");
+                    player.sendMessage("§6/땅 구매 §f- 현재 서 있는 청크를 구매합니다.");
+                    player.sendMessage("§6/땅 조회 §f- 현재 서 있는 청크의 소유자를 확인합니다.");
+                    player.sendMessage("§6/땅 권한 부여 [플레이어] §f- 현재 청크에 대한 권한을 플레이어에게 부여합니다.");
+                    player.sendMessage("§6/땅 권한 삭제 [플레이어] §f- 플레이어의 현재 청크 권한을 제거합니다.");
+                    player.sendMessage("§6/땅 권한 목록 §f- 현재 청크의 권한 목록을 확인합니다.");
+                    player.sendMessage("§6/땅 도움말 §f- 이 도움말을 표시합니다.");
+                    player.sendMessage("");
+                    player.sendMessage("§f※ 청크 구분은 §7F3 + G§f를 동시에 눌러 확인할 수 있습니다.");
+                    player.sendMessage("§f7※ 청크 1개 구매 비용: §6" + me.saehyeon.hiusmp.Constants.costs.ESTATE_CHUNK_COST + " 히유코인");
+                    player.sendMessage("");
+                }
+
+                else if(args[0].equals("권한")) {
+                    try {
+                        if(args[1].equals("삭제")) {
+                            Player target = Bukkit.getPlayer(args[2]);
+
+                            if(target == null) {
+                                player.sendMessage("§c해당 플레이어를 찾을 수 없습니다.");
+                                return false;
+                            }
+
+                            if(!Estate.hasChunk(player.getUniqueId().toString(), player.getChunk().getX(), player.getChunk().getZ())) {
+                                player.sendMessage("§c청크 소유자만 권한을 삭제할 수 있습니다.");
+                                return false;
+                            }
+
+                            if(!Estate.hasPermission(target, player.getChunk().getX(), player.getChunk().getZ())) {
+                                player.sendMessage("§c이미 "+CustomName.getName(target)+"(은)는 해당 청크에 대한 권한을 가지고 있지 않습니다.");
+                                return false;
+                            }
+
+                            Estate.removePermission(target.getUniqueId().toString(), player.getChunk().getX(), player.getChunk().getZ());
+                            player.sendMessage("§7"+CustomName.getName(target)+"§f의 §7"+player.getChunk().getX()+", "+player.getChunk().getZ()+" §f청크에 대한 권한을 제거했습니다.");
+                        }
+
+                        else if(args[1].equals("부여")) {
+                            Player target = Bukkit.getPlayer(args[2]);
+
+                            if(target == null) {
+                                player.sendMessage("§c해당 플레이어를 찾을 수 없습니다.");
+                                return false;
+                            }
+
+                            if(!Estate.hasChunk(player.getUniqueId().toString(), player.getChunk().getX(), player.getChunk().getZ())) {
+                                player.sendMessage("§c청크 소유자만 권한을 부여할 수 있습니다.");
+                                return false;
+                            }
+
+                            if(Estate.hasPermission(target, player.getChunk().getX(), player.getChunk().getZ())) {
+                                player.sendMessage("§c"+CustomName.getName(target)+"(은)는 이미 해당 청크에 대한 권한을 가지고 있습니다.");
+                                return false;
+                            }
+
+                            Estate.addPermission(target, player.getChunk().getX(), player.getChunk().getZ());
+                            player.sendMessage("§7"+CustomName.getName(target)+"§f에게 §7"+player.getChunk().getX()+", "+player.getChunk().getZ()+" §f청크에 대한 권한을 부여했습니다.");
+                            target.sendMessage("§7"+CustomName.getName(player)+"§f 소유의 §7"+player.getChunk().getX()+", "+player.getChunk().getZ()+" §f청크에 대한 권한을 부여받았습니다.");
+                        }
+
+                        else if(args[1].equals("목록")) {
+                            int x = player.getChunk().getX();
+                            int z = player.getChunk().getZ();
+
+                            // 현재 청크의 소유자인지 확인
+                            if(!Estate.hasChunk(player.getUniqueId().toString(), x, z)) {
+                                player.sendMessage("§c청크 소유자만 권한 목록을 확인할 수 있습니다.");
+                                return false;
+                            }
+
+                            // 현재 청크에 대한 권한을 가진 플레이어 목록 가져오기
+                            ArrayList<String> playersWithPermission = Estate.getPlayersWithPermissionForChunk(x, z);
+
+                            if(playersWithPermission.isEmpty()) {
+                                player.sendMessage("§c현재 청크에 권한을 부여받은 플레이어가 없습니다.");
+                                return false;
+                            }
+
+                            player.sendMessage("");
+                            player.sendMessage("§f[ §7"+x+", "+z+"§f 청크 권한 목록 ]");
+                            for(String uuid : playersWithPermission) {
+                                Player target = Bukkit.getPlayer(java.util.UUID.fromString(uuid));
+                                String playerName;
+
+                                if(target != null) {
+                                    playerName = CustomName.getName(target);
+                                } else {
+                                    playerName = Bukkit.getOfflinePlayer(java.util.UUID.fromString(uuid)).getName();
+                                }
+
+                                player.sendMessage("§f- " + playerName);
+                            }
+                            player.sendMessage("");
+                        }
+                    } catch (Exception e) {
+                        player.sendMessage("§c사용법: /땅 권한 [삭제/부여/목록] [플레이어 이름]");
+                    }
+                }
+            } else {
+                sender.sendMessage("§c땅 명령어는 인게임에서만 가능합니다.");
+            }
         }
 
         else if(label.equals("칭호")) {
@@ -270,7 +390,8 @@ public class Command implements CommandExecutor {
         }
 
         else if(label.equals("집터")) {
-            Teleport.teleportWait((Player) sender, Constants.locations.TOWN_SPAWN);
+            sender.sendMessage("§c히유 SMP 시즌2 부터는 /집터 명령을 사용할 수 없습니다. /로비 를 통해 집터를 이용해주세요.");
+            //Teleport.teleportWait((Player) sender, Constants.locations.TOWN_SPAWN);
         }
 
         else if(label.equals("도움말")) {
@@ -282,7 +403,7 @@ public class Command implements CommandExecutor {
             sender.sendMessage("§6/돈: §f현재 소지금을 확인합니다.");
             sender.sendMessage("§6/송금 [플레이어 이름] [금액]: §f특정 플레이어에게 일정 금액을 송금합니다.");
             sender.sendMessage("§6/로비: §f로비로 이동합니다.");
-            sender.sendMessage("§6/집터: §f집터로 이동합니다.");
+            sender.sendMessage("§6/땅 도움말: §f땅 관련 기능 도움말을 확인합니다.");
             sender.sendMessage("§6/집 또는 /홈: §f집으로 설정된 위치로 텔레포트하기 위한 화면을 엽니다.");
             sender.sendMessage("§6/집설정: §f집 위치 설정을 위한 화면을 엽니다.");
             sender.sendMessage("§6/이름 [한글 이름]: §f한글 이름을 설정합니다. 최초 이름 변경 시를 제외하고 §6"+CUSTOM_NAME_CHANGE_COST+" 히유코인§f을 소비합니다.");

@@ -68,9 +68,9 @@ public class RichPrefixTimer {
                 CustomName.removePrefix(onlinePlayer, "§6§l[서버 1위]");
                 CustomName.removePrefix(onlinePlayer, "§e[서버 2위]");
                 CustomName.removePrefix(onlinePlayer, "§f[서버 3위]");
-                CustomName.removePrefix(onlinePlayer, "§7[거지 3위]");
-                CustomName.removePrefix(onlinePlayer, "§8[거지 2위]");
-                CustomName.removePrefix(onlinePlayer, "§c[거지 1위]");
+                CustomName.removePrefix(onlinePlayer, "§7[도태 3위]");
+                CustomName.removePrefix(onlinePlayer, "§8[도태 2위]");
+                CustomName.removePrefix(onlinePlayer, "§c[도태 1위]");
             }
 
             if(topPlayers[0] != null) {

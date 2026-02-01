@@ -23,13 +23,21 @@ public class ShopManager {
 
         inv.setItem(10, blockShop);
 
+        ItemStack blockShop2 = new ItemStack(Material.GRASS_BLOCK);
+        ItemMeta blockShop2Meta = blockShop2.getItemMeta();;
+        blockShop2Meta.setDisplayName(Constants.shop.BLOCK_SHOP_TWO_ICON_NAME);
+        blockShop2Meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        blockShop2.setItemMeta(blockShop2Meta);
+
+        inv.setItem(12, blockShop2);
+
         ItemStack minerShop = new ItemStack(Material.IRON_PICKAXE);
         ItemMeta minerMeta = minerShop.getItemMeta();
         minerMeta.setDisplayName(Constants.shop.MINER_SHOP_ICON_NAME);
         minerMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         minerShop.setItemMeta(minerMeta);
 
-        inv.setItem(12, minerShop);
+        inv.setItem(14, minerShop);
 
         ItemStack farmShop = new ItemStack(Material.IRON_HOE);
         ItemMeta farmShopMeta = farmShop.getItemMeta();
@@ -37,7 +45,7 @@ public class ShopManager {
         farmShopMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         farmShop.setItemMeta(farmShopMeta);
 
-        inv.setItem(14, farmShop);
+        inv.setItem(16, farmShop);
 
         ItemStack monsterShop = new ItemStack(Material.IRON_SWORD);
         ItemMeta monsterShopMeta = monsterShop.getItemMeta();
@@ -45,7 +53,7 @@ public class ShopManager {
         monsterShopMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         monsterShop.setItemMeta(monsterShopMeta);
 
-        inv.setItem(16, monsterShop);
+        inv.setItem(28, monsterShop);
 
         ItemStack treasureShop = new ItemStack(Material.NETHER_STAR);
         ItemMeta treasureMeta = treasureShop.getItemMeta();
@@ -53,7 +61,7 @@ public class ShopManager {
         treasureMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         treasureShop.setItemMeta(treasureMeta);
 
-        inv.setItem(28, treasureShop);
+        inv.setItem(30, treasureShop);
 
         ItemStack specialShop = new ItemStack(Material.ECHO_SHARD);
         ItemMeta specialShopMeta = specialShop.getItemMeta();
@@ -61,7 +69,7 @@ public class ShopManager {
         specialShopMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         specialShop.setItemMeta(specialShopMeta);
 
-        inv.setItem(30, specialShop);
+        inv.setItem(32, specialShop);
 
         player.openInventory(inv);
     }

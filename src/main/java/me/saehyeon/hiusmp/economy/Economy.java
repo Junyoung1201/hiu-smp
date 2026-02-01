@@ -1,6 +1,7 @@
 package me.saehyeon.hiusmp.economy;
 
 import me.saehyeon.hiusmp.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -11,6 +12,10 @@ import java.util.Set;
 public class Economy {
     private static YamlConfiguration economyData = new YamlConfiguration();
     private static File economyDataFile = new File(Main.ins.getDataFolder(), "economy.yml");
+
+    public static void setMoney(String uuid, int money) {
+        economyData.set("money."+uuid, Math.max(money, 0));
+    }
 
     public static void setMoney(Player player, int money) {
         economyData.set("money."+player.getUniqueId(), Math.max(money, 0));

@@ -20,9 +20,9 @@ public class MinerShop {
             new ShopItem("철", Material.IRON_INGOT, 50,100),
             new ShopItem("금 광석", Material.RAW_GOLD, 120, 470),
             new ShopItem("금", Material.GOLD_INGOT, 150, 525),
-            new ShopItem("다이아몬드", Material.DIAMOND, 5000, 15000),
-            new ShopItem("에메랄드", Material.EMERALD, 7000,25000),
-            new ShopItem("네더라이트", Material.NETHERITE_INGOT, 9000,85000)
+            new ShopItem("다이아몬드", Material.DIAMOND, 3500, 18000),
+            new ShopItem("에메랄드", Material.EMERALD, 5500,36000),
+            new ShopItem("네더라이트", Material.NETHERITE_INGOT, 8500,90000)
         };
 
         for(int i = 0 ; i < items.length; i++) {

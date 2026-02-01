@@ -24,6 +24,24 @@ public class TabComplete implements TabCompleter {
             }
         }
 
+        if(label.equals("땅")) {
+            if(args.length == 1) {
+                return Arrays.asList("구매", "권한","조회", "도움말");
+            }
+
+            if(args.length == 2) {
+                if(args[0].equals("권한")) {
+                    return Arrays.asList("부여","삭제","목록");
+                }
+            }
+
+            if(args.length == 3) {
+                if(args[0].equals("권한")) {
+                    return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+                }
+            }
+        }
+
         if(label.equals("송금")) {
             if(args.length == 1) {
                 return playerNameList;

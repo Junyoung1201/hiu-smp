@@ -2,8 +2,7 @@ package me.saehyeon.hiusmp;
 
 import me.saehyeon.hiusmp.bonus.AdvancementEvent;
 import me.saehyeon.hiusmp.bonus.MonsterKillEvent;
-import me.saehyeon.hiusmp.economy.Economy;
-import me.saehyeon.hiusmp.economy.RichPrefixTimer;
+import me.saehyeon.hiusmp.economy.*;
 import me.saehyeon.hiusmp.features.*;
 import me.saehyeon.hiusmp.fun.DurabilityEvent;
 import me.saehyeon.hiusmp.fun.HardMonsterEvent;
@@ -47,13 +46,14 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("집설정").setExecutor(new Command());
         Bukkit.getPluginCommand("이름").setExecutor(new Command());
         Bukkit.getPluginCommand("주사위").setExecutor(new Command());
-        Bukkit.getPluginCommand("집터").setExecutor(new Command());
+        Bukkit.getPluginCommand("땅").setExecutor(new Command());
         Bukkit.getPluginCommand("도움말").setExecutor(new Command());
         Bukkit.getPluginCommand("hiu-item").setExecutor(new Command());
         Bukkit.getPluginCommand("prefix").setExecutor(new Command());
         Bukkit.getPluginCommand("칭호").setExecutor(new Command());
 
         Bukkit.getPluginCommand("상점").setTabCompleter(new TabComplete());
+        Bukkit.getPluginCommand("땅").setTabCompleter(new TabComplete());
         Bukkit.getPluginCommand("돈").setTabCompleter(new TabComplete());
         Bukkit.getPluginCommand("송금").setTabCompleter(new TabComplete());
 
@@ -80,10 +80,13 @@ public final class Main extends JavaPlugin {
         // 게임 어렵게 만드는거
         Bukkit.getPluginManager().registerEvents(new HardMonsterEvent(), this);
         Bukkit.getPluginManager().registerEvents(new DurabilityEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new EnchantEvent(), this);     // 인첸트 비용 지불
+        Bukkit.getPluginManager().registerEvents(new TaxEvent(), this);         // 세금 관련 이벤트
 
         Economy.load();
         Home.load();
         CustomName.load();
+        Estate.load();
 
         Bukkit.getScheduler().runTaskLater(this, () -> {
             Constants.init();
@@ -97,6 +100,7 @@ public final class Main extends JavaPlugin {
             // 타이머 시작
             CustomName.startCleanerTimer();
             RichPrefixTimer.startTimer();
+            //Tax.startTimer();
 
             Bukkit.getWorlds().forEach(world -> {
                 world.setGameRule(GameRules.COMMAND_BLOCK_OUTPUT, false);
@@ -111,5 +115,6 @@ public final class Main extends JavaPlugin {
         Economy.save();
         Home.save();
         CustomName.save();
+        Estate.save();
     }
 }

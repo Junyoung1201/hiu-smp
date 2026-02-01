@@ -47,6 +47,9 @@ public class ShopEvent implements Listener {
                 case BLOCK_SHOP_ICON_NAME:
                     BlockShop.open(player);
                     break;
+                case BLOCK_SHOP_TWO_ICON_NAME:
+                    BlockShop2.open(player);
+                    break;
                 case MINER_SHOP_ICON_NAME:
                     MinerShop.open(player);
                     break;
@@ -79,7 +82,7 @@ public class ShopEvent implements Listener {
                 int amount = 1;
 
                 if(e.getClick().isShiftClick()) {
-                    amount = 10;
+                    amount = 64;
                 }
 
                 if(ShopItem.isShopItem(item)) {
@@ -145,7 +148,7 @@ public class ShopEvent implements Listener {
                 int amount = 1;
 
                 if(e.getClick().isShiftClick()) {
-                    amount = 10;
+                    amount = 64;
                 }
 
                 if(ShopItem.isShopItem(item)) {
