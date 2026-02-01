@@ -7,6 +7,7 @@ import me.saehyeon.hiusmp.utils.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,6 +30,15 @@ public class TownEvent implements Listener {
             Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
                 noPermissionAlertCooltime.remove(player);
             },5);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerTrample(PlayerInteractEvent event) {
+        if (event.getAction() == Action.PHYSICAL) {
+            if (event.getClickedBlock() != null && event.getClickedBlock().getType() == Material.FARMLAND) {
+                event.setCancelled(true);
+            }
         }
     }
 
