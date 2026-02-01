@@ -1,5 +1,6 @@
 package me.saehyeon.hiusmp.economy;
 
+import me.saehyeon.hiusmp.Constants;
 import me.saehyeon.hiusmp.Main;
 import me.saehyeon.hiusmp.features.CustomName;
 import org.bukkit.Bukkit;
@@ -8,6 +9,7 @@ import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.yaml.snakeyaml.scanner.Constant;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -113,7 +115,19 @@ public class Estate {
         return finalUUID[0];
     }
 
+    public static int getChunkCost(Player player) {
+        int chunkAmount = getEstate(player.getUniqueId().toString()).size();
+        return Math.max((chunkAmount+1) * ESTATE_CHUNK_COST, ESTATE_CHUNK_COST);
+    }
+
     public static void buyCurrentChunk(Player player) {
+        // 이미 4개 이상의 청크를 가지고 있음
+        if(getEstate(player.getUniqueId().toString()).size() >= 4) {
+            player.sendMessage("§c당신은 이미 4개 이상의 청크를 가지고 있습니다. 한 플레이어 당 최대 4개의 청크를 소지할 수 있습니다.");
+            return;
+        }
+
+        int cost = getChunkCost(player);
         int x = player.getChunk().getX();
         int z = player.getChunk().getZ();
 
@@ -134,12 +148,12 @@ public class Estate {
             return;
         }
 
-        if(Economy.getMoney(player) < ESTATE_CHUNK_COST) {
-            player.sendMessage("§c청크를 구매하기 위해서는 "+ESTATE_CHUNK_COST+" 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
+        if(Economy.getMoney(player) < cost) {
+            player.sendMessage("§c청크를 구매하기 위해서는 "+cost+" 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
             return;
         }
 
-        Economy.addMoney(player, -ESTATE_CHUNK_COST);
+        Economy.addMoney(player, -cost);
 
         // 청크 정보를 플레이어의 estate 목록에 추가
         String playerUUID = player.getUniqueId().toString();
@@ -149,7 +163,7 @@ public class Estate {
 
         // 파일에 저장
         save();
-        player.sendMessage("§7"+x+", "+z+"§f 청크를 §6"+ESTATE_CHUNK_COST+" 히유코인§f을 지불하여 구매했습니다.");
+        player.sendMessage("§7"+x+", "+z+"§f 청크를 §6"+cost+" 히유코인§f을 지불하여 구매했습니다.");
         player.playSound(player.getLocation(), Sound.BLOCK_CHAIN_PLACE, SoundCategory.MASTER, 1,1.5f);
     }
 

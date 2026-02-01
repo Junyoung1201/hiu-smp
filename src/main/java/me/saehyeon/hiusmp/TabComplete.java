@@ -26,7 +26,7 @@ public class TabComplete implements TabCompleter {
 
         if(label.equals("땅")) {
             if(args.length == 1) {
-                return Arrays.asList("구매", "권한","조회", "도움말");
+                return Arrays.asList("구매", "권한","조회", "도움말","가격");
             }
 
             if(args.length == 2) {

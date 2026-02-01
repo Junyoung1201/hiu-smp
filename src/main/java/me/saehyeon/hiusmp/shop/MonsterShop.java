@@ -22,6 +22,7 @@ public class MonsterShop {
             new ShopItem("양털", Material.WHITE_WOOL, 10,60),
             new ShopItem("깃털", Material.FEATHER, 10,60),
             new ShopItem("화약", Material.GUNPOWDER, 10, 60),
+            new ShopItem("점토", Material.CLAY, 5, 30),
             new ShopItem("부싯돌", Material.FLINT, 1, 20),
             new ShopItem("발광 먹물 주머니", Material.GLOW_INK_SAC, 50, 300),
 

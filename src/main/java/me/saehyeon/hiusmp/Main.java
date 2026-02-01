@@ -6,6 +6,7 @@ import me.saehyeon.hiusmp.economy.*;
 import me.saehyeon.hiusmp.features.*;
 import me.saehyeon.hiusmp.fun.DurabilityEvent;
 import me.saehyeon.hiusmp.fun.HardMonsterEvent;
+import me.saehyeon.hiusmp.fun.VillagerTradeEvent;
 import me.saehyeon.hiusmp.items.ExpBoosterEvent;
 import me.saehyeon.hiusmp.items.InstantLobbyBackPaperEvent;
 import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
@@ -78,6 +79,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ExpBoosterEvent(), this);
 
         // 게임 어렵게 만드는거
+        Bukkit.getPluginManager().registerEvents(new VillagerTradeEvent(), this);
         Bukkit.getPluginManager().registerEvents(new HardMonsterEvent(), this);
         Bukkit.getPluginManager().registerEvents(new DurabilityEvent(), this);
         Bukkit.getPluginManager().registerEvents(new EnchantEvent(), this);     // 인첸트 비용 지불

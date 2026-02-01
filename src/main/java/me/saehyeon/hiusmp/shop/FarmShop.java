@@ -26,9 +26,10 @@ public class FarmShop {
                 new ShopItem("사탕수수", Material.SUGAR_CANE, 20,60),
                 new ShopItem("호박", Material.PUMPKIN, 60,120),
                 new ShopItem("수박 슬라이스", Material.MELON_SLICE, 30,90),
-                new ShopItem("수박", Material.MELON, 270,810),
+                new ShopItem("수박", Material.MELON, 70,630),
                 new ShopItem("비트", Material.BEETROOT, 60,150),
-                new ShopItem("횃불꽃", Material.TORCHFLOWER, 90,180)
+                new ShopItem("횃불꽃", Material.TORCHFLOWER, 90,180),
+                new ShopItem("대나무", Material.BAMBOO, 20,50)
         };
 
         for(int i = 0 ; i < items.length; i++) {

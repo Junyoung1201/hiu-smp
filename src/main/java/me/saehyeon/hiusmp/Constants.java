@@ -35,13 +35,15 @@ public class Constants {
     }
 
     public static class costs {
-        public static final int HOME_SET_COST = 500;
+        public static final int HOME_SET_COST = 750;
         public static final int CUSTOM_NAME_CHANGE_COST = 6500;
         public static final int TPA_REQUEST_COST = 500;
         public static final int RESPAWN_COST = 2300;
         public static final int USE_LOBBY_COST = 500;
         public static final int USE_TOWN_COST = 500;
-        public static final int ESTATE_CHUNK_COST = 38000;
+        public static final int ESTATE_CHUNK_COST = 10000;
+        public static final int ESTATE_CHUNK_OWN_MAX_AMOUNT = 4;
+        public static final int VILLAGE_TRADE_COST = 5500;
     }
 
     public static class items {

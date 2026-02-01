@@ -43,6 +43,10 @@ public class Command implements CommandExecutor {
                     Estate.whois(player);
                 }
 
+                else if(args[0].equals("가격")) {
+                    player.sendMessage("현재 청크의 가격은 §6"+Estate.getChunkCost(player)+" 히유코인§f입니다.");
+                }
+
                 else if(args[0].equals("도움말")) {
                     player.sendMessage("");
                     player.sendMessage("§6§l[ 땅 명령어 도움말 ]");
