@@ -5,6 +5,7 @@ import me.saehyeon.hiusmp.bonus.MonsterKillEvent;
 import me.saehyeon.hiusmp.economy.*;
 import me.saehyeon.hiusmp.features.*;
 import me.saehyeon.hiusmp.fun.DurabilityEvent;
+import me.saehyeon.hiusmp.fun.EnderWorldEvent;
 import me.saehyeon.hiusmp.fun.HardMonsterEvent;
 import me.saehyeon.hiusmp.fun.VillagerTradeEvent;
 import me.saehyeon.hiusmp.items.ExpBoosterEvent;
@@ -88,6 +89,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ExpBoosterEvent(), this);
 
         // 게임 어렵게 만드는거
+        Bukkit.getPluginManager().registerEvents(new EnderWorldEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerRespawnEvent(), this);
         Bukkit.getPluginManager().registerEvents(new VillagerTradeEvent(), this);
         Bukkit.getPluginManager().registerEvents(new HardMonsterEvent(), this);

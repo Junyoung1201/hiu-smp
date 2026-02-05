@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class PlayerUtil {
     public static void teleport(Player player, Location location) {
-        String worldName = location.getWorld().equals("world") ? "overworld" : location.getWorld().getName();
+        String worldName = location.getWorld().getName().equals("world") ? "overworld" : location.getWorld().getName();
 
         teleport(player, worldName, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
     }
