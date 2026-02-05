@@ -61,8 +61,8 @@ public class HomeGUiEvent implements Listener {
                 if(e.getCurrentItem().getType() == Material.WHITE_BANNER) {
 
                     // 돈 확인 (100 히유코인 필요)
-                    if(Economy.getMoney(player) < 100) {
-                        player.sendMessage("§c소지금이 부족합니다. 집으로 이동하기 위해서는 100 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
+                    if(Economy.getMoney(player) < 350) {
+                        player.sendMessage("§c소지금이 부족합니다. 집으로 이동하기 위해서는 350 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
                         return;
                     }
 
@@ -77,7 +77,7 @@ public class HomeGUiEvent implements Listener {
 
                         player.closeInventory();
 
-                        Economy.addMoney(player, -100);
+                        Economy.addMoney(player, -350);
 
                         Teleport.teleportWait(player, new Location(Bukkit.getWorld(world), x,y,z));
 

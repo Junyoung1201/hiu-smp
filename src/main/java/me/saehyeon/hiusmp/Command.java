@@ -10,6 +10,7 @@ import me.saehyeon.hiusmp.items.InstantLobbyBackPaper;
 import me.saehyeon.hiusmp.items.InventorySavePaper;
 import me.saehyeon.hiusmp.parkour.Parkour;
 import me.saehyeon.hiusmp.shop.ShopManager;
+import me.saehyeon.hiusmp.utils.DirUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandExecutor;
@@ -17,7 +18,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static me.saehyeon.hiusmp.Constants.costs.CUSTOM_NAME_CHANGE_COST;
 
@@ -26,6 +30,27 @@ public class Command implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if(label.equals("상점")) {
             ShopManager.openSelectScreen((Player) sender);
+        }
+
+        else if(label.equals("wild-clear")) {
+            if(sender == Bukkit.getConsoleSender()) {
+
+                String rootDir = Paths.get(Main.ins.getDataFolder().getAbsolutePath(),"..","..").toString();
+
+                for(String worldName : Arrays.asList("wild","wild_nether","town_nether","wild_the_end")) {
+                    Bukkit.dispatchCommand(sender, "mv remove "+worldName);
+                    Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
+                        DirUtil.deleteDirectory(new File(rootDir, worldName));
+                    },50);
+                }
+
+                Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
+                    Bukkit.dispatchCommand(sender, "mv create wild normal --world-type large_biomes");
+                    Bukkit.dispatchCommand(sender, "mv create wild_nether nether --world-type large_biomes");
+                    Bukkit.dispatchCommand(sender, "mv create town_nether nether --world-type large_biomes");
+                    Bukkit.dispatchCommand(sender, "mv create wild_the_end the_end --world-type large_biomes");
+                },100);
+            }
         }
 
         else if(label.equals("땅")) {
@@ -52,6 +77,7 @@ public class Command implements CommandExecutor {
                     player.sendMessage("§6§l[ 땅 명령어 도움말 ]");
                     player.sendMessage("");
                     player.sendMessage("§6/땅 구매 §f- 현재 서 있는 청크를 구매합니다.");
+                    player.sendMessage("§6/땅 가격 §f- 현재 서 있는 청크의 구매 가격을 확인합니다.");
                     player.sendMessage("§6/땅 조회 §f- 현재 서 있는 청크의 소유자를 확인합니다.");
                     player.sendMessage("§6/땅 권한 부여 [플레이어] §f- 현재 청크에 대한 권한을 플레이어에게 부여합니다.");
                     player.sendMessage("§6/땅 권한 삭제 [플레이어] §f- 플레이어의 현재 청크 권한을 제거합니다.");
@@ -153,7 +179,7 @@ public class Command implements CommandExecutor {
             }
         }
 
-        else if(label.equals("칭호")) {
+        else if(label.equals("칭호") || label.equals("별명") || label.equals("호칭")) {
             if(!sender.isOp() && !sender.equals(Bukkit.getConsoleSender())) {
                 sender.sendMessage("§c이 명령어를 사용할 권한이 없습니다.");
                 return false;
@@ -208,7 +234,7 @@ public class Command implements CommandExecutor {
             }
         }
 
-        else if(label.equals("돈")) {
+        else if(label.equals("돈") || label.equals("ehs")) {
             if(!sender.isOp() && !sender.equals(Bukkit.getConsoleSender())) {
                 sender.sendMessage("당신의 현재 소지금은 §6§l"+Economy.getMoney((Player) sender)+" 히유코인§f입니다.");
                 return false;
@@ -359,8 +385,8 @@ public class Command implements CommandExecutor {
             }
         }
 
-        else if(label.equals("로비")) {
-            Teleport.teleportWait((Player) sender, new Location(Bukkit.getWorld("world"), 0, 0, 0,0,0));
+        else if(label.equals("로비") || label.equals("스폰") || label.equals("spawn") || label.equals("넴주")) {
+            Teleport.teleportWait((Player) sender, Constants.locations.LOBBY);
         }
 
         else if(label.equals("집") || label.equals("홈")) {

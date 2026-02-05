@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import static me.saehyeon.hiusmp.Constants.costs.ESTATE_CHUNK_COST;
+import static me.saehyeon.hiusmp.Constants.costs.ESTATE_CHUNK_OWN_MAX_AMOUNT;
 
 public class Estate {
 
@@ -122,7 +123,7 @@ public class Estate {
 
     public static void buyCurrentChunk(Player player) {
         // 이미 4개 이상의 청크를 가지고 있음
-        if(getEstate(player.getUniqueId().toString()).size() >= 4) {
+        if(getEstate(player.getUniqueId().toString()).size() >= ESTATE_CHUNK_OWN_MAX_AMOUNT) {
             player.sendMessage("§c당신은 이미 4개 이상의 청크를 가지고 있습니다. 한 플레이어 당 최대 4개의 청크를 소지할 수 있습니다.");
             return;
         }

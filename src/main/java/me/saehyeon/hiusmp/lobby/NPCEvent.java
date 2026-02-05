@@ -14,6 +14,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import static me.saehyeon.hiusmp.Constants.locations.WILD_SPAWN;
+
 public class NPCEvent implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -25,7 +27,7 @@ public class NPCEvent implements Listener {
                 String npcName = ChatColor.stripColor(e.getRightClicked().getCustomName());
 
                 if(npcName.equals("야생으로 이동")) {
-                    PlayerUtil.teleport(e.getPlayer(), "wild", 0, 76, 0, 0,0);
+                    PlayerUtil.teleport(e.getPlayer(), WILD_SPAWN);
                     e.getPlayer().sendMessage("§c§l야생에 집을 짓지 마세요! §f야생은 1주 마다 초기화됩니다!");
                 }
 

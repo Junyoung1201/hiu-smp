@@ -17,13 +17,13 @@ public class TaxEvent implements Listener {
     void onTeleport(PlayerTeleportEvent e) {
         if(e.getCause() == PlayerTeleportEvent.TeleportCause.COMMAND) {
             Bukkit.getScheduler().runTaskLater(Main.ins, () -> {
-                if(e.getPlayer().getWorld().getName().equals("town")) {
-                    if(Economy.getMoney(e.getPlayer()) > USE_TOWN_COST) {
-                        Economy.addMoney(e.getPlayer(), -USE_TOWN_COST);
-                        e.getPlayer().sendMessage("집터 출입 비용으로 §6"+USE_TOWN_COST+" 히유코인§f을 지불했습니다.");
-                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_CHAIN_PLACE, SoundCategory.MASTER,1,1.5f);
-                    }
-                }
+//                if(e.getPlayer().getWorld().getName().equals("town")) {
+//                    if(Economy.getMoney(e.getPlayer()) > USE_TOWN_COST) {
+//                        Economy.addMoney(e.getPlayer(), -USE_TOWN_COST);
+//                        e.getPlayer().sendMessage("집터 출입 비용으로 §6"+USE_TOWN_COST+" 히유코인§f을 지불했습니다.");
+//                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_CHAIN_PLACE, SoundCategory.MASTER,1,1.5f);
+//                    }
+//                }
 
                 if(e.getPlayer().getWorld().getName().equals("world")) {
                     if(Economy.getMoney(e.getPlayer()) > USE_LOBBY_COST) {

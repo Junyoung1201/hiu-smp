@@ -6,10 +6,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 
+import static me.saehyeon.hiusmp.Constants.costs.ENCHANT_PER_LEVEL_COST;
+
 public class EnchantEvent implements Listener {
+
     @EventHandler
     void onEnchant(EnchantItemEvent e) {
-        int enchantCost = e.getExpLevelCost()*2000;
+        int enchantCost = e.getExpLevelCost()*ENCHANT_PER_LEVEL_COST;
 
         if(Economy.getMoney(e.getEnchanter()) < enchantCost) {
             e.setCancelled(true);

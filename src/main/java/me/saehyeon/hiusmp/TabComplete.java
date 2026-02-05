@@ -24,9 +24,15 @@ public class TabComplete implements TabCompleter {
             }
         }
 
+        if(label.equals("칭호") || label.equals("별명") || label.equals("호칭")) {
+            if(args.length == 1) {
+                return Arrays.asList("추가","삭제");
+            }
+        }
+
         if(label.equals("땅")) {
             if(args.length == 1) {
-                return Arrays.asList("구매", "권한","조회", "도움말","가격");
+                return Arrays.asList("구매", "권한","조회", "도움말", "가격");
             }
 
             if(args.length == 2) {

@@ -11,10 +11,7 @@ import me.saehyeon.hiusmp.items.ExpBoosterEvent;
 import me.saehyeon.hiusmp.items.InstantLobbyBackPaperEvent;
 import me.saehyeon.hiusmp.items.InventorySavePaperEvent;
 import me.saehyeon.hiusmp.items.NightVisionBottleEvent;
-import me.saehyeon.hiusmp.lobby.BlockEvent;
-import me.saehyeon.hiusmp.lobby.ConnectEvent;
-import me.saehyeon.hiusmp.lobby.InteractiveEvent;
-import me.saehyeon.hiusmp.lobby.NPCEvent;
+import me.saehyeon.hiusmp.lobby.*;
 import me.saehyeon.hiusmp.parkour.Parkour;
 import me.saehyeon.hiusmp.parkour.ParkourEvent;
 import me.saehyeon.hiusmp.shop.ShopEvent;
@@ -34,13 +31,19 @@ public final class Main extends JavaPlugin {
 
         Bukkit.getPluginCommand("상점").setExecutor(new Command());
         Bukkit.getPluginCommand("돈").setExecutor(new Command());
+        Bukkit.getPluginCommand("ehs").setExecutor(new Command());
         Bukkit.getPluginCommand("송금").setExecutor(new Command());
         Bukkit.getPluginCommand("tpa").setExecutor(new Command());
         Bukkit.getPluginCommand("tpa-accept").setExecutor(new Command());
         Bukkit.getPluginCommand("tpa-deny").setExecutor(new Command());
         Bukkit.getPluginCommand("tpa-cancel").setExecutor(new Command());
         Bukkit.getPluginCommand("티피요청").setExecutor(new Command());
+
         Bukkit.getPluginCommand("로비").setExecutor(new Command());
+        Bukkit.getPluginCommand("spawn").setExecutor(new Command());
+        Bukkit.getPluginCommand("스폰").setExecutor(new Command());
+        Bukkit.getPluginCommand("넴주").setExecutor(new Command());
+
         Bukkit.getPluginCommand("집").setExecutor(new Command());
         Bukkit.getPluginCommand("홈").setExecutor(new Command());
         Bukkit.getPluginCommand("나가기").setExecutor(new Command());
@@ -52,11 +55,17 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("hiu-item").setExecutor(new Command());
         Bukkit.getPluginCommand("prefix").setExecutor(new Command());
         Bukkit.getPluginCommand("칭호").setExecutor(new Command());
+        Bukkit.getPluginCommand("별명").setExecutor(new Command());
+        Bukkit.getPluginCommand("호칭").setExecutor(new Command());
+        Bukkit.getPluginCommand("wild-clear").setExecutor(new Command());
 
         Bukkit.getPluginCommand("상점").setTabCompleter(new TabComplete());
         Bukkit.getPluginCommand("땅").setTabCompleter(new TabComplete());
         Bukkit.getPluginCommand("돈").setTabCompleter(new TabComplete());
         Bukkit.getPluginCommand("송금").setTabCompleter(new TabComplete());
+        Bukkit.getPluginCommand("칭호").setTabCompleter(new TabComplete());
+        Bukkit.getPluginCommand("별명").setTabCompleter(new TabComplete());
+        Bukkit.getPluginCommand("호칭").setTabCompleter(new TabComplete());
 
         Bukkit.getPluginManager().registerEvents(new ShopEvent(), this);
         Bukkit.getPluginManager().registerEvents(new TeleportEvent(), this);
@@ -79,6 +88,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ExpBoosterEvent(), this);
 
         // 게임 어렵게 만드는거
+        Bukkit.getPluginManager().registerEvents(new PlayerRespawnEvent(), this);
         Bukkit.getPluginManager().registerEvents(new VillagerTradeEvent(), this);
         Bukkit.getPluginManager().registerEvents(new HardMonsterEvent(), this);
         Bukkit.getPluginManager().registerEvents(new DurabilityEvent(), this);

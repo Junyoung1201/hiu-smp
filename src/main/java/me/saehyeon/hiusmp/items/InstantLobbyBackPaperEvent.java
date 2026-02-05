@@ -19,6 +19,7 @@ import java.util.List;
 
 import static me.saehyeon.hiusmp.Constants.items.SI_EXP_BOOSTER_DISPLAY_NAME;
 import static me.saehyeon.hiusmp.Constants.items.SI_LOBBY_BACK_PAPER_DISPLAY_NAME;
+import static me.saehyeon.hiusmp.Constants.locations.LOBBY;
 
 public class InstantLobbyBackPaperEvent implements Listener {
     List<Player> cooldown = new ArrayList<>();
@@ -42,7 +43,7 @@ public class InstantLobbyBackPaperEvent implements Listener {
             InventoryUtil.removeItemsByName(e.getPlayer(), SI_LOBBY_BACK_PAPER_DISPLAY_NAME, 1);
 
             // 로비로 이동
-            PlayerUtil.teleport(e.getPlayer(), "overworld", 0,0,0,0f,0f);
+            PlayerUtil.teleport(e.getPlayer(), LOBBY);
             e.getPlayer().sendMessage("로비로 이동했습니다.");
             e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_TELEPORT, SoundCategory.MASTER,0.7f, 1f);
 

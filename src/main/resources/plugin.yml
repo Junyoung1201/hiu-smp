@@ -11,6 +11,8 @@ commands:
   돈:
   송금:
   칭호:
+  별명:
+  호칭:
   tpa:
   tpa-accept:
   tpa-deny:
@@ -19,6 +21,11 @@ commands:
   로비:
   집:
   홈:
+  spawn:
+  스폰:
+  넴주:
+  wild-clear:
+  ehs:
   집설정:
   이름:
   주사위:
