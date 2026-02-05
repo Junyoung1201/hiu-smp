@@ -385,7 +385,7 @@ public class Command implements CommandExecutor {
             }
         }
 
-        else if(label.equals("로비") || label.equals("스폰") || label.equals("spawn") || label.equals("넴주")) {
+        else if(label.equals("로비") || label.equals("스폰") || label.equals("spawn") || label.equals("넴주") || label.equals("마을")) {
             Teleport.teleportWait((Player) sender, Constants.locations.LOBBY);
         }
 
@@ -432,7 +432,7 @@ public class Command implements CommandExecutor {
             sender.sendMessage("§6/tpa 또는 /티피요청 [플레이어 이름]: §f특정 플레이어에게 텔레포트를 요청합니다.");
             sender.sendMessage("§6/돈: §f현재 소지금을 확인합니다.");
             sender.sendMessage("§6/송금 [플레이어 이름] [금액]: §f특정 플레이어에게 일정 금액을 송금합니다.");
-            sender.sendMessage("§6/로비: §f로비로 이동합니다.");
+            sender.sendMessage("§6/마을: §f로비로 이동합니다.");
             sender.sendMessage("§6/땅 도움말: §f땅 관련 기능 도움말을 확인합니다.");
             sender.sendMessage("§6/집 또는 /홈: §f집으로 설정된 위치로 텔레포트하기 위한 화면을 엽니다.");
             sender.sendMessage("§6/집설정: §f집 위치 설정을 위한 화면을 엽니다.");

@@ -40,6 +40,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("tpa-cancel").setExecutor(new Command());
         Bukkit.getPluginCommand("티피요청").setExecutor(new Command());
 
+        Bukkit.getPluginCommand("마을").setExecutor(new Command());
         Bukkit.getPluginCommand("로비").setExecutor(new Command());
         Bukkit.getPluginCommand("spawn").setExecutor(new Command());
         Bukkit.getPluginCommand("스폰").setExecutor(new Command());

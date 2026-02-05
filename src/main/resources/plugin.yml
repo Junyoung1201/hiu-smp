@@ -17,6 +17,7 @@ commands:
   tpa-accept:
   tpa-deny:
   tpa-cancel:
+  마을:
   티피요청:
   로비:
   집:

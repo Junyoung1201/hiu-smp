@@ -6,7 +6,7 @@ import org.bukkit.Location;
 public class Constants {
     public static void init() {
         locations.WILD_SPAWN = new Location(Bukkit.getWorld("wild"), 0, 64, 0);
-        locations.LOBBY = new Location(Bukkit.getWorld("world"), -0.5,3, 0.5,-180,0);
+        locations.LOBBY = new Location(Bukkit.getWorld("world"), -575.5,11,-131.5,-180,0);
         locations.PARKOUR_SPAWN = new Location(Bukkit.getWorld("world"),0, -57 ,0);
         locations.PARKOUR_POS1 = new Location(Bukkit.getWorld("world"),7, -50, 51);
         locations.PARKOUR_POS2 = new Location(Bukkit.getWorld("world"),-35, -63, -2);
@@ -40,7 +40,7 @@ public class Constants {
         public static final int CUSTOM_NAME_CHANGE_COST = 6500;
         public static final int TPA_REQUEST_COST = 500;
         public static final int RESPAWN_COST = 2300;
-        public static final int ENCHANT_PER_LEVEL_COST = 1200;
+        public static final int ENCHANT_PER_LEVEL_COST = 2500;
         public static final int USE_LOBBY_COST = 750;
         public static final int USE_TOWN_COST = 500;
         public static final int ESTATE_CHUNK_COST = 10000;
