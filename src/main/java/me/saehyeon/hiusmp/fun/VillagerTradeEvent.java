@@ -2,6 +2,9 @@ package me.saehyeon.hiusmp.fun;
 
 import me.saehyeon.hiusmp.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +19,15 @@ public class VillagerTradeEvent implements Listener {
     void onTrade(InventoryClickEvent e) {
         if(e.getClickedInventory() != null && e.getClickedInventory().getType() == InventoryType.MERCHANT && e.getRawSlot() == 2 && e.getSlotType() == InventoryType.SlotType.RESULT) {
             Player player = (Player) e.getWhoClicked();
+
+            if(e.getCurrentItem() != null) {
+                if(e.getCurrentItem().getType() == Material.ENCHANTED_BOOK) {
+                    e.setCancelled(true);
+                    player.sendMessage("§c사서 주민과 인첸트 북을 거래할 수 없습니다. 사서 노조가 현재 파업 중입니다.");
+                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, SoundCategory.MASTER, 1,1);
+                    return;
+                }
+            }
 
             if(Economy.getMoney(player) >= VILLAGE_TRADE_COST) {
                 Economy.addMoney(player, -VILLAGE_TRADE_COST);
