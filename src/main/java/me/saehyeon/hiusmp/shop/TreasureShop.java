@@ -22,7 +22,7 @@ public class TreasureShop {
                 new ShopItem("엔더드래곤 머리", Material.DRAGON_HEAD, 35000,100000),
                 new ShopItem("토템", Material.TOTEM_OF_UNDYING, 40000,200000),
                 new ShopItem("엔더드래곤 알", Material.DRAGON_EGG, 10000,50000),
-                new ShopItem("팬텀 막", Material.PHANTOM_MEMBRANE, 2500,10000),
+                new ShopItem("팬텀 막", Material.PHANTOM_MEMBRANE, 1000,10000),
                 new ShopItem("소 스폰알", Material.COW_SPAWN_EGG, 0,5000),
                 new ShopItem("양 스폰알", Material.SHEEP_SPAWN_EGG, 0,5000),
                 new ShopItem("돼지 스폰알", Material.PIG_SPAWN_EGG, 0,5000),

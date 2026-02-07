@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import static me.saehyeon.hiusmp.Constants.costs.HOME_TP_COST;
+
 public class HomeGUiEvent implements Listener {
     @EventHandler
     void onHomeGuiInteractive(InventoryClickEvent e) {
@@ -61,8 +63,8 @@ public class HomeGUiEvent implements Listener {
                 if(e.getCurrentItem().getType() == Material.WHITE_BANNER) {
 
                     // 돈 확인 (100 히유코인 필요)
-                    if(Economy.getMoney(player) < 350) {
-                        player.sendMessage("§c소지금이 부족합니다. 집으로 이동하기 위해서는 350 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
+                    if(Economy.getMoney(player) < HOME_TP_COST) {
+                        player.sendMessage("§c소지금이 부족합니다. 집으로 이동하기 위해서는 "+HOME_TP_COST+" 히유코인이 필요합니다. (현재 소지금: "+Economy.getMoney(player)+" 히유코인)");
                         return;
                     }
 
@@ -77,8 +79,8 @@ public class HomeGUiEvent implements Listener {
 
                         player.closeInventory();
 
-                        Economy.addMoney(player, -350);
-
+                        Economy.addMoney(player, -HOME_TP_COST);
+                        player.sendMessage("§6"+HOME_TP_COST+" 히유코인§f을 사용하여 §7"+ChatColor.stripColor( ItemUtil.getDisplayName(e.getCurrentItem()) )+"§f으로 이동했습니다.");
                         Teleport.teleportWait(player, new Location(Bukkit.getWorld(world), x,y,z));
 
                     } catch (Exception ex) {

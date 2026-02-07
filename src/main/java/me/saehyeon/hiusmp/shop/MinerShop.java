@@ -11,6 +11,7 @@ public class MinerShop {
         player.openInventory(inv);
 
         ShopItem[] items = new ShopItem[] {
+            new ShopItem("구리 광석", Material.RAW_COPPER, 1,2),
             new ShopItem("구리", Material.COPPER_INGOT, 1,2),
             new ShopItem("자수정", Material.AMETHYST_SHARD, 30,50),
             new ShopItem("석탄", Material.COAL, 1,5),
@@ -21,7 +22,7 @@ public class MinerShop {
             new ShopItem("금 광석", Material.RAW_GOLD, 70, 470),
             new ShopItem("금", Material.GOLD_INGOT, 100, 525),
             new ShopItem("다이아몬드", Material.DIAMOND, 1200, 18000),
-            new ShopItem("에메랄드", Material.EMERALD, 2700,36000),
+            new ShopItem("에메랄드", Material.EMERALD, 2200,36000),
             new ShopItem("네더라이트", Material.NETHERITE_INGOT, 8500,90000)
         };
 

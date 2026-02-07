@@ -20,6 +20,7 @@ public class BlockShop {
             new ShopItem("얼음", Material.ICE, 4,20),
             new ShopItem("참나무 원목", Material.OAK_LOG, 3, 15),
             new ShopItem("자작나무 원목", Material.BIRCH_LOG, 3, 15),
+            new ShopItem("가문비나무 원목", Material.SPRUCE_LOG, 3, 15),
             new ShopItem("아카시아 원목", Material.ACACIA_LOG, 3, 15),
             new ShopItem("벚꽃나무 원목", Material.CHERRY_LOG, 5, 25),
             new ShopItem("정글나무 원목", Material.JUNGLE_LOG, 3, 15),

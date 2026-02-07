@@ -36,10 +36,11 @@ public class Constants {
     }
 
     public static class costs {
-        public static final int HOME_SET_COST = 750;
+        public static final int HOME_TP_COST = 1450;
+        public static final int HOME_SET_COST = 1750;
         public static final int CUSTOM_NAME_CHANGE_COST = 6500;
         public static final int TPA_REQUEST_COST = 500;
-        public static final int RESPAWN_COST = 2300;
+        public static final int RESPAWN_COST = 4000;
         public static final int ENCHANT_PER_LEVEL_COST = 2500;
         public static final int USE_LOBBY_COST = 750;
         public static final int USE_TOWN_COST = 500;
@@ -50,7 +51,7 @@ public class Constants {
 
     public static class items {
         public static final int SI_NIGHT_VISION_TICK = 20*10*60;
-        public static final long SI_EXP_BOOSTER_TICK = 20L * 60L * 10L;
+        public static final long SI_EXP_BOOSTER_TICK = 20L * 60L * 3L;
         public static final String SI_LOBBY_BACK_PAPER_DISPLAY_NAME = "§f§l로비 귀환서";
         public static final String SI_INVENTORY_SAVE_PAPER_DISPLAY_NAME = "§e인벤세이브 스크롤";
         public static final String SI_NIGHT_VISION_BOTTLE_DISPLAY_NAME = "§b야간투시";

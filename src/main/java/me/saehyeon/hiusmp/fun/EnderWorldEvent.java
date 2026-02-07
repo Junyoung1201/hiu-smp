@@ -24,7 +24,7 @@ public class EnderWorldEvent implements Listener {
             }
         },3);
     }
-
+    
     @EventHandler
     void onDeath(PlayerDeathEvent e) {
         if(isEndWorld(e.getPlayer())) {

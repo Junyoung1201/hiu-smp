@@ -19,11 +19,11 @@ public class HardMonsterEvent implements Listener {
 
             if(e.getDamager().getType() == EntityType.ENDER_DRAGON) {
                 // 엔더드래곤 2배
-                e.setDamage(e.getDamage() * 2);
+                e.setDamage(e.getFinalDamage() * 2);
                 ((Player)e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 60, 2)); // 3초간 공중 부양
             } else {
-                // 나머지 몬스터는 1.5배
-                e.setDamage(e.getDamage() * 1.5);
+                // 일반 몬스터 1.8 배
+                e.setDamage(e.getFinalDamage() * 1.7);
             }
         }
     }
@@ -31,11 +31,11 @@ public class HardMonsterEvent implements Listener {
     @EventHandler
     void onDragonDamaged(EntityDamageByEntityEvent e) {
         if(e.getEntity().getType() == EntityType.ENDER_DRAGON) {
-            // 드래곤이 받는 데미지 20% 감소
-            e.setDamage(e.getDamage() * 0.2);
+            // 드래곤이 받는 데미지 50% 감소
+            e.setDamage(e.getFinalDamage() * 0.5);
 
-            // 5% 확률로 엔더맨 소환
-            if(Math.random() < 0.05) {
+            // 15% 확률로 엔더맨 소환
+            if(Math.random() < 0.15) {
                 Enderman enderman = e.getEntity().getWorld().spawn(e.getEntity().getLocation(), Enderman.class);
                 enderman.setAggressive(true);
             }
@@ -46,7 +46,7 @@ public class HardMonsterEvent implements Listener {
     void onDamageByDragonBreath(EntityDamageEvent e) {
         if(e.getEntity() instanceof Player victim && e.getCause() == EntityDamageEvent.DamageCause.DRAGON_BREATH) {
             
-            e.setDamage(e.getDamage() * 1.5);
+            e.setDamage(e.getFinalDamage() * 1.5);
         }
     }
 }

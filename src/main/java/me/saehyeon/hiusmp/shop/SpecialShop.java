@@ -53,10 +53,10 @@ public class SpecialShop {
         quietSneakingBookMeta.addStoredEnchant(Enchantment.SWIFT_SNEAK, 3, false);
         quietSneakingBook.setItemMeta(quietSneakingBookMeta);
 
-        // 인첸트북 아이템 - 행운 3
+        // 인첸트북 아이템 - 행운 2
         ItemStack fortuneBook = new ItemStack(Material.ENCHANTED_BOOK, 1);
         EnchantmentStorageMeta fortuneBookMeta = (EnchantmentStorageMeta) fortuneBook.getItemMeta();
-        fortuneBookMeta.addStoredEnchant(Enchantment.FORTUNE, 3, false);
+        fortuneBookMeta.addStoredEnchant(Enchantment.FORTUNE, 2, false);
         fortuneBook.setItemMeta(fortuneBookMeta);
 
         // 인첸트북 아이템 - 날카로움 4
@@ -97,7 +97,7 @@ public class SpecialShop {
                     .setLore(Arrays.asList("§7우클릭§f하면 §7"+((int)(Constants.items.SI_NIGHT_VISION_TICK / 20 / 60))+"분의 야간투시§f를 부여받습니다.","§f서버를 나가면 즉시 야간투시가 사라집니다.","")),
 
 
-            new ExtraShopItem(ExpBooster.getItem().getType(), SI_EXP_BOOSTER_DISPLAY_NAME, 1000, 7500)
+            new ExtraShopItem(ExpBooster.getItem().getType(), SI_EXP_BOOSTER_DISPLAY_NAME, 1000, 7200)
                     .registerRealItem(ExpBooster.getItem())
                     .setLore(Arrays.asList("§7우클릭§f하면 §7"+((int)(Constants.items.SI_EXP_BOOSTER_TICK / 20 / 60))+"분§f 동안 경험치 2배 부스팅을 적용합니다.","§f서버를 나가도 사라지지 않습니다.","")),
 

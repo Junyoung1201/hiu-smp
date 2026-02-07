@@ -43,6 +43,6 @@ public class ConnectEvent implements Listener {
         },10);
 
         // 시즌 초기화 알림
-        sessionChangeAlert(e.getPlayer());
+        //sessionChangeAlert(e.getPlayer());
     }
 }

@@ -20,6 +20,7 @@ public class FarmShop {
 
                 new ShopItem("밀", Material.WHEAT, 30,90),
                 new ShopItem("감자", Material.POTATO, 20,50),
+                new ShopItem("구운감자", Material.BAKED_POTATO, 23,53),
                 new ShopItem("독 감자", Material.POISONOUS_POTATO, 25,55),
                 new ShopItem("당근", Material.CARROT, 20,50),
                 new ShopItem("황금 당근", Material.GOLDEN_CARROT, 25 ,450),

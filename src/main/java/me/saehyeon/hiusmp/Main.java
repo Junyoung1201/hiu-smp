@@ -115,6 +115,7 @@ public final class Main extends JavaPlugin {
             // 타이머 시작
             CustomName.startCleanerTimer();
             RichPrefixTimer.startTimer();
+            EnderDragonSupport.startTimer();
             //Tax.startTimer();
 
             Bukkit.getWorlds().forEach(world -> {
